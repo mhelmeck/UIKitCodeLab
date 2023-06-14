@@ -40,6 +40,8 @@ class ViewController: UITableViewController {
                 imageNames.append(item)
             }
         }
+        
+        imageNames.sort()
     }
 }
 
@@ -50,6 +52,7 @@ extension ViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         cell.textLabel?.text = imageNames[indexPath.row]
         
         return cell
@@ -58,6 +61,11 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailViewController()
         vc.selectedImageName = imageNames[indexPath.row]
+        
+        let imagesAmount = imageNames.count
+        let selectedImagePosition = indexPath.row + 1
+        let screenTitle = "Picture \(selectedImagePosition) of \(imagesAmount)"
+        vc.screenTitle = screenTitle
         
         navigationController?.pushViewController(vc, animated: true)
     }

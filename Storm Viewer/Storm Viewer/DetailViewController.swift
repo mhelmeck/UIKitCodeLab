@@ -11,6 +11,7 @@ class DetailViewController: UIViewController {
     // MARK: - Properties
     
     var selectedImageName: String?
+    var screenTitle: String?
     
     private let imageView: UIImageView = {
         let view = UIImageView()
@@ -44,7 +45,7 @@ class DetailViewController: UIViewController {
     // MARK: - Methods
     
     private func setupView() {
-        title = selectedImageName
+        title = screenTitle
         navigationItem.largeTitleDisplayMode = .never
         view.backgroundColor = .white
         
