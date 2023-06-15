@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Guess The Flag/Guess The Flag.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Storm Viewer/Storm Viewer.xcodeproj">
    </FileRef>
 </Workspace>
