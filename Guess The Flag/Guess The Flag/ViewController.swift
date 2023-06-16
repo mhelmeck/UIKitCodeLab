@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     
     private let flagThree: UIButton = {
         let button = UIButton(type: .system)
-        button.layer.borderWidth = 1
+        button.layer.borderWidth = 1    
         button.layer.borderColor = UIColor.lightGray.cgColor
         
         return button
