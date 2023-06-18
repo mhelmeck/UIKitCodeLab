@@ -47,8 +47,12 @@ class ViewController: UIViewController {
     }()
     
     private var countries = [String]()
-    private var score = 0
+    private var scores = [Int]()
     private var correctAnswer = 0
+
+    private var score: Int {
+        scores.reduce(0, +)
+    }
     
     // MARK: - Lifecycle
     
@@ -57,7 +61,7 @@ class ViewController: UIViewController {
         
         setupView()
         loadData()
-        askQuestion()
+        play()
     }
     
     // MARK: - Methods
@@ -76,21 +80,26 @@ class ViewController: UIViewController {
     
     @objc private func buttonTapped(sender: UIButton) {
         var title: String
+        var message: String
         
         if sender.tag == correctAnswer {
+            scores.append(1)
+            
             title = "Correct"
-            score += 1
+            message = "Your score is \(score)."
         } else {
+            scores.append(-1)
+            
             title = "Wrong"
-            score -= 1
+            message = "That’s the flag of \(countries[sender.tag].capitalized) Your score is \(score)."
         }
         
         let alertVC = UIAlertController(
             title: title,
-            message: "Your score is \(score).",
+            message: message,
             preferredStyle: .alert
         )
-        alertVC.addAction(UIAlertAction(title: "Continue", style: .default, handler: askQuestion))
+        alertVC.addAction(UIAlertAction(title: "Continue", style: .default, handler: play))
         
         present(alertVC, animated: true)
     }
@@ -118,7 +127,15 @@ class ViewController: UIViewController {
         ].forEach( { countries.append($0) })
     }
     
-    private func askQuestion(action: UIAlertAction? = nil) {
+    private func play(action: UIAlertAction? = nil) {
+        if scores.count == 5 {
+            reset()
+        } else {
+            askQuestion()
+        }
+    }
+        
+    private func askQuestion() {
         countries.shuffle()
         
         flagOne.setBackgroundImage(UIImage(named: countries[0]), for: .normal)
@@ -126,6 +143,23 @@ class ViewController: UIViewController {
         flagThree.setBackgroundImage(UIImage(named: countries[2]), for: .normal)
         
         correctAnswer = Int.random(in: 0...2)
-        title = countries[correctAnswer].uppercased()
+        
+        title = "Current score: \(score)! Guess: \(countries[correctAnswer].capitalized)"
+    }
+    
+    private func reset() {
+        title = ""
+        
+        let alertVC = UIAlertController(
+            title: "Congratulations!",
+            message: "You've finished game with score: \(score).",
+            preferredStyle: .alert
+        )
+        alertVC.addAction(UIAlertAction(title: "Play again", style: .default, handler: { [weak self] _ in
+            self?.scores = []
+            self?.play()
+        }))
+        
+        present(alertVC, animated: true)
     }
 }
