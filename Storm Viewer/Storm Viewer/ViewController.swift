@@ -17,6 +17,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(shareTapped))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         setupView()
@@ -68,5 +69,16 @@ extension ViewController {
         vc.screenTitle = screenTitle
         
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc private func shareTapped() {
+        let textToShare = "Check out this amazing app!"
+        
+        if let appURL = URL(string: "https://www.hackingwithswift.com") {
+            let vc = UIActivityViewController(activityItems: [textToShare, appURL], applicationActivities: nil)
+            
+            vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+            present(vc, animated: true)
+        }
     }
 }

@@ -68,6 +68,8 @@ class ViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .white
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(shareTapped))
+        
         flagOne.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         flagTwo.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         flagThree.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -86,12 +88,12 @@ class ViewController: UIViewController {
             scores.append(1)
             
             title = "Correct"
-            message = "Your score is \(score)."
+            message = "Your score is: \(score)"
         } else {
             scores.append(-1)
             
             title = "Wrong"
-            message = "That’s the flag of \(countries[sender.tag].capitalized) Your score is \(score)."
+            message = "That’s the flag of \(countries[sender.tag].capitalized) Your score is: \(score)"
         }
         
         let alertVC = UIAlertController(
@@ -144,7 +146,7 @@ class ViewController: UIViewController {
         
         correctAnswer = Int.random(in: 0...2)
         
-        title = "Current score: \(score)! Guess: \(countries[correctAnswer].capitalized)"
+        title = "Guess: \(countries[correctAnswer].capitalized)"
     }
     
     private func reset() {
@@ -159,6 +161,17 @@ class ViewController: UIViewController {
             self?.scores = []
             self?.play()
         }))
+        
+        present(alertVC, animated: true)
+    }
+    
+    @objc private func shareTapped() {
+        let alertVC = UIAlertController(
+            title: "Current score!",
+            message: "\(score)",
+            preferredStyle: .alert
+        )
+        alertVC.addAction(UIAlertAction(title: "Ok", style: .default))
         
         present(alertVC, animated: true)
     }
