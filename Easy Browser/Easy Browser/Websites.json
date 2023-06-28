@@ -1,0 +1,44 @@
+{
+  "websites": [
+    {
+      "name": "Bored Panda",
+      "url": "https://www.boredpanda.com/"
+    },
+    {
+      "name": "BuzzFeed",
+      "url": "https://www.buzzfeed.com/"
+    },
+    {
+      "name": "Reddit",
+      "url": "https://www.reddit.com/"
+    },
+    {
+      "name": "Play Retro Games",
+      "url": "https://www.playretrogames.com/"
+    },
+    {
+      "name": "The Useless Web",
+      "url": "https://theuselessweb.com/"
+    },
+    {
+      "name": "Sporcle",
+      "url": "https://www.sporcle.com/"
+    },
+    {
+      "name": "Dude LOL",
+      "url": "https://www.dudelol.com/"
+    },
+    {
+      "name": "Addicting Games",
+      "url": "https://www.addictinggames.com/"
+    },
+    {
+      "name": "The Onion",
+      "url": "https://www.theonion.com/"
+    },
+    {
+      "name": "Zombo",
+      "url": "https://www.zombo.com/"
+    }
+  ]
+}
