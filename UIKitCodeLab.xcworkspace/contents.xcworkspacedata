@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Word Scramble/Word Scramble.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Easy Browser/Easy Browser.xcodeproj">
    </FileRef>
    <FileRef
