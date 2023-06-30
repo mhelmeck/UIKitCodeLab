@@ -18,6 +18,8 @@ class HomeTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
         view.backgroundColor = .white
@@ -47,6 +49,26 @@ class HomeTableViewController: UITableViewController {
         usedWords.removeAll(keepingCapacity: true)
         
         tableView.reloadData()
+    }
+    
+    private func submit(_ answer: String) {
+        print(answer)
+    }
+    
+    @objc private func promptForAnswer() {
+        let alertVC = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
+        alertVC.addTextField()
+        
+        let submitAction = UIAlertAction(title: "Submit", style: .default) { [weak self, weak alertVC] _ in
+            guard let answer = alertVC?.textFields?.first?.text else {
+                return
+            }
+            
+            self?.submit(answer)
+        }
+        
+        alertVC.addAction(submitAction)
+        present(alertVC, animated: true)
     }
 }
 
