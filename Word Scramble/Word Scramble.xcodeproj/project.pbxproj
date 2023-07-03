@@ -56,23 +56,23 @@
 		89D95EA42A4F296A00BAB9D7 /* Word Scramble */ = {
 			isa = PBXGroup;
 			children = (
-				89D95EB92A4F2ABA00BAB9D7 /* Source */,
+				89D95EBA2A4F2B2700BAB9D7 /* words.txt */,
+				89D95EB92A4F2ABA00BAB9D7 /* Sources */,
 				89D95EA52A4F296A00BAB9D7 /* AppDelegate.swift */,
 				89D95EA72A4F296A00BAB9D7 /* SceneDelegate.swift */,
 				89D95EAE2A4F296C00BAB9D7 /* Assets.xcassets */,
-				89D95EBA2A4F2B2700BAB9D7 /* words.txt */,
 				89D95EB02A4F296C00BAB9D7 /* LaunchScreen.storyboard */,
 				89D95EB32A4F296C00BAB9D7 /* Info.plist */,
 			);
 			path = "Word Scramble";
 			sourceTree = "<group>";
 		};
-		89D95EB92A4F2ABA00BAB9D7 /* Source */ = {
+		89D95EB92A4F2ABA00BAB9D7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				89D95EA92A4F296A00BAB9D7 /* HomeTableViewController.swift */,
 			);
-			path = Source;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

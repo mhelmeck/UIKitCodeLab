@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeTableViewController.swift
 //  Storm Viewer
 //
 //  Created by Maciej Helmecki on 14/06/2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class HomeTableViewController: UITableViewController {
     // MARK: - Properties
     
     private var imageNames = [String]()
@@ -46,7 +46,7 @@ class ViewController: UITableViewController {
     }
 }
 
-extension ViewController {
+extension HomeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return imageNames.count
     }

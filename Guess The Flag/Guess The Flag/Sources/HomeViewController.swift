@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  Guess The Flag
 //
 //  Created by Maciej Helmecki on 16/06/2023.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
     // MARK: - Properties
     
     private let stackView: UIStackView = {

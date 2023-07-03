@@ -13,7 +13,7 @@
 		892B787E2A49BC9B0050FA50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 892B787D2A49BC9B0050FA50 /* Assets.xcassets */; };
 		892B78812A49BC9B0050FA50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892B787F2A49BC9B0050FA50 /* LaunchScreen.storyboard */; };
 		897EB0742A4CB5C10078B0D2 /* Websites.json in Resources */ = {isa = PBXBuildFile; fileRef = 897EB0732A4CB5C10078B0D2 /* Websites.json */; };
-		897EB0782A4CB67C0078B0D2 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897EB0772A4CB67C0078B0D2 /* TableViewController.swift */; };
+		897EB0782A4CB67C0078B0D2 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		892B78802A49BC9B0050FA50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		892B78822A49BC9B0050FA50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		897EB0732A4CB5C10078B0D2 /* Websites.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Websites.json; sourceTree = "<group>"; };
-		897EB0772A4CB67C0078B0D2 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +58,24 @@
 		892B78732A49BC990050FA50 /* Easy Browser */ = {
 			isa = PBXGroup;
 			children = (
+				897EB0732A4CB5C10078B0D2 /* Websites.json */,
+				89D95EBE2A4F3AA700BAB9D7 /* Sources */,
 				892B78742A49BC990050FA50 /* AppDelegate.swift */,
 				892B78762A49BC990050FA50 /* SceneDelegate.swift */,
-				892B78782A49BC990050FA50 /* ViewController.swift */,
-				897EB0772A4CB67C0078B0D2 /* TableViewController.swift */,
-				897EB0732A4CB5C10078B0D2 /* Websites.json */,
 				892B787D2A49BC9B0050FA50 /* Assets.xcassets */,
 				892B787F2A49BC9B0050FA50 /* LaunchScreen.storyboard */,
 				892B78822A49BC9B0050FA50 /* Info.plist */,
 			);
 			path = "Easy Browser";
+			sourceTree = "<group>";
+		};
+		89D95EBE2A4F3AA700BAB9D7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				892B78782A49BC990050FA50 /* ViewController.swift */,
+				897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,7 +154,7 @@
 				892B78792A49BC990050FA50 /* ViewController.swift in Sources */,
 				892B78752A49BC990050FA50 /* AppDelegate.swift in Sources */,
 				892B78772A49BC990050FA50 /* SceneDelegate.swift in Sources */,
-				897EB0782A4CB67C0078B0D2 /* TableViewController.swift in Sources */,
+				897EB0782A4CB67C0078B0D2 /* HomeTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		89746C702A3BDCE60014CDEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89746C6F2A3BDCE60014CDEF /* AppDelegate.swift */; };
 		89746C722A3BDCE60014CDEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89746C712A3BDCE60014CDEF /* SceneDelegate.swift */; };
-		89746C742A3BDCE60014CDEF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89746C732A3BDCE60014CDEF /* ViewController.swift */; };
+		89746C742A3BDCE60014CDEF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89746C732A3BDCE60014CDEF /* HomeViewController.swift */; };
 		89746C792A3BDCE80014CDEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89746C782A3BDCE80014CDEF /* Assets.xcassets */; };
 		89746C7C2A3BDCE80014CDEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89746C7A2A3BDCE80014CDEF /* LaunchScreen.storyboard */; };
 		89746C852A3BE1080014CDEF /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 89746C842A3BE1080014CDEF /* SnapKit */; };
@@ -19,7 +19,7 @@
 		89746C6C2A3BDCE60014CDEF /* Guess The Flag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess The Flag.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89746C6F2A3BDCE60014CDEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89746C712A3BDCE60014CDEF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		89746C732A3BDCE60014CDEF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		89746C732A3BDCE60014CDEF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		89746C782A3BDCE80014CDEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89746C7B2A3BDCE80014CDEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89746C7D2A3BDCE80014CDEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,14 +56,22 @@
 		89746C6E2A3BDCE60014CDEF /* Guess The Flag */ = {
 			isa = PBXGroup;
 			children = (
+				89D95EBD2A4F3A7700BAB9D7 /* Sources */,
 				89746C6F2A3BDCE60014CDEF /* AppDelegate.swift */,
 				89746C712A3BDCE60014CDEF /* SceneDelegate.swift */,
-				89746C732A3BDCE60014CDEF /* ViewController.swift */,
 				89746C782A3BDCE80014CDEF /* Assets.xcassets */,
 				89746C7A2A3BDCE80014CDEF /* LaunchScreen.storyboard */,
 				89746C7D2A3BDCE80014CDEF /* Info.plist */,
 			);
 			path = "Guess The Flag";
+			sourceTree = "<group>";
+		};
+		89D95EBD2A4F3A7700BAB9D7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				89746C732A3BDCE60014CDEF /* HomeViewController.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,7 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				89746C742A3BDCE60014CDEF /* ViewController.swift in Sources */,
+				89746C742A3BDCE60014CDEF /* HomeViewController.swift in Sources */,
 				89746C702A3BDCE60014CDEF /* AppDelegate.swift in Sources */,
 				89746C722A3BDCE60014CDEF /* SceneDelegate.swift in Sources */,
 			);

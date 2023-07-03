@@ -1,5 +1,5 @@
 //
-//  TableViewController.swift
+//  HomeTableViewController.swift
 //  Easy Browser
 //
 //  Created by Maciej Helmecki on 28/06/2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+class HomeTableViewController: UITableViewController {
     // MARK: - Properties
     
     private var websites: [Website] = []
@@ -47,7 +47,7 @@ class TableViewController: UITableViewController {
     }
 }
 
-extension TableViewController {
+extension HomeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return websites.count
     }

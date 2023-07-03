@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		891C8F712A39C1D900DA8F48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C8F702A39C1D900DA8F48 /* AppDelegate.swift */; };
 		891C8F732A39C1D900DA8F48 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C8F722A39C1D900DA8F48 /* SceneDelegate.swift */; };
-		891C8F752A39C1D900DA8F48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C8F742A39C1D900DA8F48 /* ViewController.swift */; };
+		891C8F752A39C1D900DA8F48 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C8F742A39C1D900DA8F48 /* HomeTableViewController.swift */; };
 		891C8F7A2A39C1DB00DA8F48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 891C8F792A39C1DB00DA8F48 /* Assets.xcassets */; };
 		891C8F7D2A39C1DB00DA8F48 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 891C8F7B2A39C1DB00DA8F48 /* LaunchScreen.storyboard */; };
 		89C64E932A39C51600D83A73 /* nssl0049.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89C64E892A39C51600D83A73 /* nssl0049.jpg */; };
@@ -29,7 +29,7 @@
 		891C8F6D2A39C1D900DA8F48 /* Storm Viewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Storm Viewer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		891C8F702A39C1D900DA8F48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		891C8F722A39C1D900DA8F48 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		891C8F742A39C1D900DA8F48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		891C8F742A39C1D900DA8F48 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
 		891C8F792A39C1DB00DA8F48 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		891C8F7C2A39C1DB00DA8F48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		891C8F7E2A39C1DB00DA8F48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,14 +76,13 @@
 		891C8F6F2A39C1D900DA8F48 /* Storm Viewer */ = {
 			isa = PBXGroup;
 			children = (
+				89C64E882A39C51600D83A73 /* Content */,
+				89D95EBC2A4F3A1500BAB9D7 /* Sources */,
 				891C8F702A39C1D900DA8F48 /* AppDelegate.swift */,
 				891C8F722A39C1D900DA8F48 /* SceneDelegate.swift */,
-				891C8F742A39C1D900DA8F48 /* ViewController.swift */,
-				89C64E9D2A39C8C800D83A73 /* DetailViewController.swift */,
 				891C8F792A39C1DB00DA8F48 /* Assets.xcassets */,
 				891C8F7B2A39C1DB00DA8F48 /* LaunchScreen.storyboard */,
 				891C8F7E2A39C1DB00DA8F48 /* Info.plist */,
-				89C64E882A39C51600D83A73 /* Content */,
 			);
 			path = "Storm Viewer";
 			sourceTree = "<group>";
@@ -103,6 +102,15 @@
 				89C64E922A39C51600D83A73 /* nssl0034.jpg */,
 			);
 			path = Content;
+			sourceTree = "<group>";
+		};
+		89D95EBC2A4F3A1500BAB9D7 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				891C8F742A39C1D900DA8F48 /* HomeTableViewController.swift */,
+				89C64E9D2A39C8C800D83A73 /* DetailViewController.swift */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				891C8F752A39C1D900DA8F48 /* ViewController.swift in Sources */,
+				891C8F752A39C1D900DA8F48 /* HomeTableViewController.swift in Sources */,
 				891C8F712A39C1D900DA8F48 /* AppDelegate.swift in Sources */,
 				891C8F732A39C1D900DA8F48 /* SceneDelegate.swift in Sources */,
 				89C64E9E2A39C8C800D83A73 /* DetailViewController.swift in Sources */,

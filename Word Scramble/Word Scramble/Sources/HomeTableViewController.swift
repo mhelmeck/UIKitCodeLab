@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeTableViewController.swift
 //  Word Scramble
 //
 //  Created by Maciej Helmecki on 30/06/2023.
