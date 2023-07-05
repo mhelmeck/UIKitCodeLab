@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-class HomeTableViewModel {
+class HomeViewModel {
     // MARK: - Properties
     
     let homeTitle = "Storm Viewer"

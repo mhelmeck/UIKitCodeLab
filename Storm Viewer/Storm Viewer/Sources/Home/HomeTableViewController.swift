@@ -14,14 +14,14 @@ class HomeTableViewController: UITableViewController {
     // MARK: - Properties
     
     private var cancellables = Set<AnyCancellable>()
-    private var viewModel: HomeTableViewModel!
+    private var viewModel: HomeViewModel!
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = HomeTableViewModel()
+        viewModel = HomeViewModel()
         
         setupView()
         bindView()

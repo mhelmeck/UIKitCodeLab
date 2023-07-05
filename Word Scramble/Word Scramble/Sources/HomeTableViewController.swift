@@ -10,43 +10,32 @@ import UIKit
 class HomeTableViewController: UITableViewController {
     // MARK: - Properties
     
-    var allWords = [String]()
-    var usedWords = [String]()
+    private var viewModel: HomeViewModel!
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
+        viewModel = HomeViewModel()
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        
-        view.backgroundColor = .white
-        
-        loadData()
+        setupView()
         startGame()
     }
     
     // MARK: - Methods
     
-    private func loadData() {
-        guard let url = Bundle.main.url(forResource: "words", withExtension: "txt"),
-             let words = try? String(contentsOf: url) else {
-            return
-        }
+    private func setupView() {
+        view.backgroundColor = .white
         
-        allWords = words.components(separatedBy: "\n")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
         
-        if allWords.isEmpty {
-            allWords = ["silkworm"]
-        }
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     private func startGame() {
-        title = allWords.randomElement()?.capitalized
-        
-        usedWords.removeAll(keepingCapacity: true)
+        title = viewModel.homeTitle
+        viewModel.removeUsedWords()
         
         tableView.reloadData()
     }
@@ -74,12 +63,12 @@ class HomeTableViewController: UITableViewController {
 
 extension HomeTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return usedWords.count
+        return viewModel.usedWords.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = usedWords[indexPath.row]
+        cell.textLabel?.text = viewModel.usedWord(for: indexPath.row)
         
         return cell
     }
