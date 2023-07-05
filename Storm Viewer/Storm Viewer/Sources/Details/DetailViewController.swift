@@ -10,8 +10,7 @@ import UIKit
 class DetailViewController: UIViewController {
     // MARK: - Properties
     
-    var selectedImageName: String?
-    var screenTitle: String?
+    var viewModel: DetailsViewModel!
     
     private let imageView: UIImageView = {
         let view = UIImageView()
@@ -26,8 +25,6 @@ class DetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         
         setupView()
     }
@@ -47,11 +44,13 @@ class DetailViewController: UIViewController {
     // MARK: - Methods
     
     private func setupView() {
-        title = screenTitle
-        navigationItem.largeTitleDisplayMode = .never
+        title = viewModel.detailsTitle
         view.backgroundColor = .white
         
-        selectedImageName.map { imageView.image = UIImage(named: $0) }
+        navigationItem.largeTitleDisplayMode = .never
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
+        viewModel.selectedModelTitle.map { imageView.image = UIImage(named: $0) }
 
         view.addSubview(imageView)
         NSLayoutConstraint.activate([
@@ -64,7 +63,7 @@ class DetailViewController: UIViewController {
     
     @objc private func shareTapped() {
         guard let image = imageView.image?.jpegData(compressionQuality: 0.8),
-              let imageTitle = selectedImageName else {
+              let imageTitle = viewModel.selectedModelTitle else {
             return
         }
         
