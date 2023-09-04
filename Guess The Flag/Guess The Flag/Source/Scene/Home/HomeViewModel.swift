@@ -11,6 +11,8 @@ import Foundation
 class HomeViewModel {
     // MARK: - Properties
     
+    var score: Int { scores.reduce(0, +) }
+    
     @Published private(set) var alertModel = AlertModel.empty
     @Published private(set) var homeTitle = String()
     @Published private(set) var flagOneImageName = String()
@@ -20,8 +22,6 @@ class HomeViewModel {
     private(set) var countries = [String]()
     private(set) var scores = [Int]()
     private(set) var correctAnswer = 0
-    
-    var score: Int { scores.reduce(0, +) }
     
     // MARK: - Init
     
@@ -67,17 +67,19 @@ class HomeViewModel {
     
     func askQuestion() {
         countries.shuffle()
-
+        
         flagOneImageName = countries[0]
         flagTwoImageName = countries[1]
         flagThreeImageName = countries[2]
-
+        
         correctAnswer = Int.random(in: 0...2)
-
+        
         homeTitle = "Guess: \(countries[correctAnswer].capitalized)"
     }
-    
-    private func reset() {
+}
+  
+private extension HomeViewModel {
+    func reset() {
         homeTitle = ""
         
         alertModel = AlertModel(
@@ -91,7 +93,7 @@ class HomeViewModel {
         )
     }
     
-    private func loadData() {
+    func loadData() {
         [
             "estonia",
             "france",
@@ -106,16 +108,5 @@ class HomeViewModel {
             "uk",
             "us"
         ].forEach( { countries.append($0) })
-    }
-}
-
-struct AlertModel {
-    let title: String
-    let message: String
-    let actionTitle: String
-    let action: (() -> Void)?
-    
-    static var empty: AlertModel {
-        AlertModel(title: "", message: "", actionTitle: "", action: nil)
     }
 }

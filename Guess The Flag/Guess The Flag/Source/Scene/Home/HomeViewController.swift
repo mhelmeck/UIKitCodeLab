@@ -66,7 +66,7 @@ class HomeViewController: UIViewController {
     private func setupView() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(shareTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchTapped))
         
         [flagOne, flagTwo, flagThree].forEach {
             $0.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -79,7 +79,9 @@ class HomeViewController: UIViewController {
     }
     
     private func bindView() {
-        viewModel.$alertModel.sink { [weak self] model in
+        viewModel.$alertModel
+            .dropFirst()
+            .sink { [weak self] model in
             self?.showAlert(model: model)
         }.store(in: &cancellables)
         
@@ -127,7 +129,7 @@ class HomeViewController: UIViewController {
         viewModel.play()
     }
             
-    @objc private func shareTapped() {
+    @objc private func searchTapped() {
         let alertVC = UIAlertController(
             title: "Current score!",
             message: "\(viewModel.score)",

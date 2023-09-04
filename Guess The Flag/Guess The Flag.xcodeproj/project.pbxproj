@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8924AC882AA68B39008BC466 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924AC872AA68B39008BC466 /* AlertModel.swift */; };
 		8962CA1F2A5833E400787107 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962CA1E2A5833E400787107 /* HomeViewModel.swift */; };
 		89746C702A3BDCE60014CDEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89746C6F2A3BDCE60014CDEF /* AppDelegate.swift */; };
 		89746C722A3BDCE60014CDEF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89746C712A3BDCE60014CDEF /* SceneDelegate.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8924AC872AA68B39008BC466 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		8962CA1E2A5833E400787107 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		89746C6C2A3BDCE60014CDEF /* Guess The Flag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess The Flag.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89746C6F2A3BDCE60014CDEF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +41,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8924AC852AA68AFD008BC466 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				895C8BA32A56130B007E02E9 /* Home */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		8924AC862AA68B07008BC466 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8924AC872AA68B39008BC466 /* AlertModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		895C8BA32A56130B007E02E9 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -80,7 +98,8 @@
 		89D95EBD2A4F3A7700BAB9D7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				895C8BA32A56130B007E02E9 /* Home */,
+				8924AC852AA68AFD008BC466 /* Scene */,
+				8924AC862AA68B07008BC466 /* Model */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -164,6 +183,7 @@
 				89746C742A3BDCE60014CDEF /* HomeViewController.swift in Sources */,
 				89746C702A3BDCE60014CDEF /* AppDelegate.swift in Sources */,
 				89746C722A3BDCE60014CDEF /* SceneDelegate.swift in Sources */,
+				8924AC882AA68B39008BC466 /* AlertModel.swift in Sources */,
 				8962CA1F2A5833E400787107 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
