@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class DetailViewController: UIViewController {
     // MARK: - Properties
@@ -53,12 +54,9 @@ class DetailViewController: UIViewController {
         viewModel.selectedModelTitle.map { imageView.image = UIImage(named: $0) }
 
         view.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+        imageView.snp.makeConstraints {
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
     @objc private func shareTapped() {

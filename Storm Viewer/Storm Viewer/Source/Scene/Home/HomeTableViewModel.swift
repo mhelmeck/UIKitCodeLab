@@ -43,8 +43,10 @@ class HomeViewModel {
         
         return "Picture \(selectedPosition) of \(amount)"
     }
-    
-    private func fetchItems() {
+}
+ 
+private extension HomeViewModel {
+     func fetchItems() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)

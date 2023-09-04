@@ -18,7 +18,7 @@
 
 /* Begin PBXFileReference section */
 		895C8BA42A5614F8007E02E9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		89D95EA22A4F296A00BAB9D7 /* Word Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Scramble.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89D95EA22A4F296A00BAB9D7 /* Word Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Word Scramble.app"; path = "/Users/mahe03/Developer/mhelmeck/UIKitCodeLab/Word Scramble/build/Debug-iphoneos/Word Scramble.app"; sourceTree = "<absolute>"; };
 		89D95EA52A4F296A00BAB9D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89D95EA72A4F296A00BAB9D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		89D95EA92A4F296A00BAB9D7 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
@@ -43,16 +43,7 @@
 			isa = PBXGroup;
 			children = (
 				89D95EA42A4F296A00BAB9D7 /* Word Scramble */,
-				89D95EA32A4F296A00BAB9D7 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		89D95EA32A4F296A00BAB9D7 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				89D95EA22A4F296A00BAB9D7 /* Word Scramble.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		89D95EA42A4F296A00BAB9D7 /* Word Scramble */ = {
@@ -122,7 +113,7 @@
 				Base,
 			);
 			mainGroup = 89D95E992A4F296A00BAB9D7;
-			productRefGroup = 89D95EA32A4F296A00BAB9D7 /* Products */;
+			productRefGroup = 89D95E992A4F296A00BAB9D7;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

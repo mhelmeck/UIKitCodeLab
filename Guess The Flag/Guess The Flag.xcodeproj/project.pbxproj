@@ -67,7 +67,7 @@
 		89746C6E2A3BDCE60014CDEF /* Guess The Flag */ = {
 			isa = PBXGroup;
 			children = (
-				89D95EBD2A4F3A7700BAB9D7 /* Sources */,
+				89D95EBD2A4F3A7700BAB9D7 /* Source */,
 				89746C6F2A3BDCE60014CDEF /* AppDelegate.swift */,
 				89746C712A3BDCE60014CDEF /* SceneDelegate.swift */,
 				89746C782A3BDCE80014CDEF /* Assets.xcassets */,
@@ -77,12 +77,12 @@
 			path = "Guess The Flag";
 			sourceTree = "<group>";
 		};
-		89D95EBD2A4F3A7700BAB9D7 /* Sources */ = {
+		89D95EBD2A4F3A7700BAB9D7 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				895C8BA32A56130B007E02E9 /* Home */,
 			);
-			path = Sources;
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
