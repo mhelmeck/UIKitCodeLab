@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8924AC8F2AA739B0008BC466 /* Website.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924AC8E2AA739B0008BC466 /* Website.swift */; };
+		8924AC912AA739C2008BC466 /* WebsiteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924AC902AA739C2008BC466 /* WebsiteList.swift */; };
+		8924AC932AA739EB008BC466 /* WebsiteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8924AC922AA739EB008BC466 /* WebsiteViewModel.swift */; };
 		892B78752A49BC990050FA50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B78742A49BC990050FA50 /* AppDelegate.swift */; };
 		892B78772A49BC990050FA50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B78762A49BC990050FA50 /* SceneDelegate.swift */; };
-		892B78792A49BC990050FA50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B78782A49BC990050FA50 /* ViewController.swift */; };
+		892B78792A49BC990050FA50 /* WebsiteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892B78782A49BC990050FA50 /* WebsiteViewController.swift */; };
 		892B787E2A49BC9B0050FA50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 892B787D2A49BC9B0050FA50 /* Assets.xcassets */; };
 		892B78812A49BC9B0050FA50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892B787F2A49BC9B0050FA50 /* LaunchScreen.storyboard */; };
 		897EB0742A4CB5C10078B0D2 /* Websites.json in Resources */ = {isa = PBXBuildFile; fileRef = 897EB0732A4CB5C10078B0D2 /* Websites.json */; };
@@ -17,10 +20,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8924AC8E2AA739B0008BC466 /* Website.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Website.swift; sourceTree = "<group>"; };
+		8924AC902AA739C2008BC466 /* WebsiteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteList.swift; sourceTree = "<group>"; };
+		8924AC922AA739EB008BC466 /* WebsiteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteViewModel.swift; sourceTree = "<group>"; };
 		892B78712A49BC990050FA50 /* Easy Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Easy Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		892B78742A49BC990050FA50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		892B78762A49BC990050FA50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		892B78782A49BC990050FA50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		892B78782A49BC990050FA50 /* WebsiteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebsiteViewController.swift; sourceTree = "<group>"; };
 		892B787D2A49BC9B0050FA50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		892B78802A49BC9B0050FA50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		892B78822A49BC9B0050FA50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -39,6 +45,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8924AC892AA72C79008BC466 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				897EB0732A4CB5C10078B0D2 /* Websites.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8924AC8A2AA738BA008BC466 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				8924AC8C2AA738D9008BC466 /* Home */,
+				8924AC8D2AA73931008BC466 /* Website */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		8924AC8B2AA738BE008BC466 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8924AC8E2AA739B0008BC466 /* Website.swift */,
+				8924AC902AA739C2008BC466 /* WebsiteList.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8924AC8C2AA738D9008BC466 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		8924AC8D2AA73931008BC466 /* Website */ = {
+			isa = PBXGroup;
+			children = (
+				892B78782A49BC990050FA50 /* WebsiteViewController.swift */,
+				8924AC922AA739EB008BC466 /* WebsiteViewModel.swift */,
+			);
+			path = Website;
+			sourceTree = "<group>";
+		};
 		892B78682A49BC990050FA50 = {
 			isa = PBXGroup;
 			children = (
@@ -58,8 +107,8 @@
 		892B78732A49BC990050FA50 /* Easy Browser */ = {
 			isa = PBXGroup;
 			children = (
-				897EB0732A4CB5C10078B0D2 /* Websites.json */,
 				89D95EBE2A4F3AA700BAB9D7 /* Sources */,
+				8924AC892AA72C79008BC466 /* Resources */,
 				892B78742A49BC990050FA50 /* AppDelegate.swift */,
 				892B78762A49BC990050FA50 /* SceneDelegate.swift */,
 				892B787D2A49BC9B0050FA50 /* Assets.xcassets */,
@@ -72,8 +121,8 @@
 		89D95EBE2A4F3AA700BAB9D7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				892B78782A49BC990050FA50 /* ViewController.swift */,
-				897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */,
+				8924AC8A2AA738BA008BC466 /* Scene */,
+				8924AC8B2AA738BE008BC466 /* Model */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -151,8 +200,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				892B78792A49BC990050FA50 /* ViewController.swift in Sources */,
+				8924AC8F2AA739B0008BC466 /* Website.swift in Sources */,
+				892B78792A49BC990050FA50 /* WebsiteViewController.swift in Sources */,
 				892B78752A49BC990050FA50 /* AppDelegate.swift in Sources */,
+				8924AC932AA739EB008BC466 /* WebsiteViewModel.swift in Sources */,
+				8924AC912AA739C2008BC466 /* WebsiteList.swift in Sources */,
 				892B78772A49BC990050FA50 /* SceneDelegate.swift in Sources */,
 				897EB0782A4CB67C0078B0D2 /* HomeTableViewController.swift in Sources */,
 			);

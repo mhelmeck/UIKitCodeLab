@@ -60,26 +60,10 @@ extension HomeTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = ViewController()
-        vc.websites = websites
-        vc.selectedIndex = indexPath.row
+        let viewModel = WebsiteViewModel(websites: websites, selectedIndex: indexPath.row)
+        let vc = WebsiteViewController()
+        vc.viewModel = viewModel
         
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-// MARK: - Models
-
-struct WebsiteList: Decodable {
-    let websites: [Website]
-}
-
-struct Website: Decodable {
-    let title: String
-    let urlString: String
-    
-    enum CodingKeys: String, CodingKey {
-        case title = "name"
-        case urlString = "url"
     }
 }

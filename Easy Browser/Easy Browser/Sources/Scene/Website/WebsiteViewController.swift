@@ -8,11 +8,10 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class WebsiteViewController: UIViewController, WKNavigationDelegate {
     // MARK: - Properties
     
-    var websites: [Website] = []
-    var selectedIndex: Int = 0
+    var viewModel: WebsiteViewModel!
     
     private var webView: WKWebView!
     private var progressView: UIProgressView!
@@ -33,10 +32,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
+        
         let progresButton = UIBarButtonItem(customView: progressView)
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        
         let back = UIBarButtonItem(title: "Back", style: .plain, target: webView, action: #selector(webView.goBack))
         let forward = UIBarButtonItem(title: "Forward", style: .plain, target: webView, action: #selector(webView.goForward))
         
@@ -45,7 +44,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
-        load(stringUrl: websites[selectedIndex].urlString)
+        load(stringUrl: viewModel.stringUrl)
     }
     
     // MARK: - Methods
@@ -56,9 +55,13 @@ class ViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        title = webView.title
+    }
+    
     @objc private func openTapped() {
         let alert = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
-        for website in websites {
+        for website in viewModel.websites {
             alert.addAction(UIAlertAction(title: website.title, style: .default, handler: { [weak self] _ in
                 let stringUrl = website.urlString
                 
@@ -73,14 +76,20 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
     
     private func load(stringUrl: String) {
-        let url = URL(string: stringUrl)!
-        
+        guard let url = URL(string: stringUrl) else {
+            presentErrorAlert()
+            return
+        }
+         
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
     
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        title = webView.title
+    private func presentErrorAlert() {
+        let alertVC = UIAlertController(title: "Sorry", message: "This side is blocked", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "Ok", style: .default))
+
+        present(alertVC, animated: true)
     }
     
 //    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
@@ -97,10 +106,4 @@ class ViewController: UIViewController, WKNavigationDelegate {
 //        }
 //    }
 //
-//    private func presentAlert() {
-//        let alertVC = UIAlertController(title: "Sorry", message: "This side is blocked", preferredStyle: .alert)
-//        alertVC.addAction(UIAlertAction(title: "Ok", style: .default))
-//
-//        present(alertVC, animated: true)
-//    }
 }
