@@ -17,6 +17,7 @@
 		892B78812A49BC9B0050FA50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 892B787F2A49BC9B0050FA50 /* LaunchScreen.storyboard */; };
 		897EB0742A4CB5C10078B0D2 /* Websites.json in Resources */ = {isa = PBXBuildFile; fileRef = 897EB0732A4CB5C10078B0D2 /* Websites.json */; };
 		897EB0782A4CB67C0078B0D2 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */; };
+		89AD40132AAF46ED00DA4F1B /* HomeTableViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AD40122AAF46ED00DA4F1B /* HomeTableViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		892B78822A49BC9B0050FA50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		897EB0732A4CB5C10078B0D2 /* Websites.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Websites.json; sourceTree = "<group>"; };
 		897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
+		89AD40122AAF46ED00DA4F1B /* HomeTableViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				897EB0772A4CB67C0078B0D2 /* HomeTableViewController.swift */,
+				89AD40122AAF46ED00DA4F1B /* HomeTableViewViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				8924AC912AA739C2008BC466 /* WebsiteList.swift in Sources */,
 				892B78772A49BC990050FA50 /* SceneDelegate.swift in Sources */,
 				897EB0782A4CB67C0078B0D2 /* HomeTableViewController.swift in Sources */,
+				89AD40132AAF46ED00DA4F1B /* HomeTableViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
