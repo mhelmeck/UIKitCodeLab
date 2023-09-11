@@ -20,6 +20,7 @@ class HomeTableViewController: UITableViewController {
         viewModel = HomeViewModel()
         
         setupView()
+        
         startGame()
     }
     
@@ -39,7 +40,7 @@ class HomeTableViewController: UITableViewController {
         
         tableView.reloadData()
     }
-    
+        
     private func submit(_ answer: String) {
         print(answer)
     }

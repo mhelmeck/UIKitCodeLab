@@ -10,9 +10,12 @@ import Foundation
 class HomeViewModel {
     // MARK: - Properties
 
+    var homeTitle: String? {
+        allWords.randomElement()?.capitalized
+    }
+    
     private (set) var allWords = [String]()
     private (set) var usedWords = [String]()
-    var homeTitle: String? { allWords.randomElement()?.capitalized }
     
     // MARK: - Init
     
