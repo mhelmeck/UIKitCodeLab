@@ -5,12 +5,14 @@
 //  Created by Maciej Helmecki on 30/06/2023.
 //
 
+import Combine
 import UIKit
 
 class HomeTableViewController: UITableViewController {
     // MARK: - Properties
     
     private var viewModel: HomeViewModel!
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     
@@ -20,8 +22,7 @@ class HomeTableViewController: UITableViewController {
         viewModel = HomeViewModel()
         
         setupView()
-        
-        startGame()
+        bindData()
     }
     
     // MARK: - Methods
@@ -34,13 +35,20 @@ class HomeTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
-    private func startGame() {
-        title = viewModel.homeTitle
-        viewModel.removeUsedWords()
+    private func bindData() {
+        viewModel.reloadDataSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.tableView.reloadData()
+            }.store(in: &cancellables)
         
-        tableView.reloadData()
+        viewModel.$title
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] title in
+                self?.title = title
+            }.store(in: &cancellables)
     }
-        
+    
     private func submit(_ answer: String) {
         print(answer)
     }

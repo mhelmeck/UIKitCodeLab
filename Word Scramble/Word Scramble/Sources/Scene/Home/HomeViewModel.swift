@@ -5,22 +5,23 @@
 //  Created by Maciej Helmecki on 05/07/2023.
 //
 
+import Combine
 import Foundation
 
 class HomeViewModel {
     // MARK: - Properties
 
-    var homeTitle: String? {
-        allWords.randomElement()?.capitalized
-    }
+    let reloadDataSubject = PassthroughSubject<Void, Never>()
     
-    private (set) var allWords = [String]()
+    @Published var title = String()
     private (set) var usedWords = [String]()
+    private var allWords = [String]()
     
     // MARK: - Init
     
     init() {
         loadData()
+        startGame()
     }
     
     // MARK: - Methods
@@ -48,5 +49,11 @@ class HomeViewModel {
         if allWords.isEmpty {
             allWords = ["silkworm"]
         }
+    }
+    
+    private func startGame() {
+        title = allWords.randomElement()?.capitalized ?? ""
+        removeUsedWords()
+        reloadDataSubject.send()
     }
 }

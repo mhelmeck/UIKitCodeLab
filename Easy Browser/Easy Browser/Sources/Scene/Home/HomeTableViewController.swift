@@ -11,8 +11,8 @@ import UIKit
 class HomeTableViewController: UITableViewController {
     // MARK: - Properties
     
-    private var cancellables = Set<AnyCancellable>()
     private var viewModel: HomeTableViewViewModel!
+    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     
