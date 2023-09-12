@@ -120,8 +120,24 @@ class HomeViewController: UIViewController {
     }
     
     private func installConstraints() {
+        flagOne.snp.makeConstraints {
+            $0.width.equalTo(flagOne.snp.height).multipliedBy(2.0 / 1.0)
+        }
+        
+        flagTwo.snp.makeConstraints {
+            $0.width.equalTo(flagTwo.snp.height).multipliedBy(2.0 / 1.0)
+            $0.height.equalTo(flagOne.snp.height)
+        }
+
+        flagThree.snp.makeConstraints {
+            $0.width.equalTo(flagThree.snp.height).multipliedBy(2.0 / 1.0)
+            $0.height.equalTo(flagOne.snp.height)
+        }
+        
         stackView.snp.makeConstraints {
             $0.centerY.centerX.equalToSuperview()
+            $0.top.leading.greaterThanOrEqualTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.bottom.lessThanOrEqualTo(view.safeAreaLayoutGuide).offset(-20)
         }
     }
     
