@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		895C8BA52A5614F8007E02E9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895C8BA42A5614F8007E02E9 /* HomeViewModel.swift */; };
+		89AD40192AAFB0F200DA4F1B /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AD40182AAFB0F200DA4F1B /* AlertModel.swift */; };
 		89D95EA62A4F296A00BAB9D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D95EA52A4F296A00BAB9D7 /* AppDelegate.swift */; };
 		89D95EA82A4F296A00BAB9D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D95EA72A4F296A00BAB9D7 /* SceneDelegate.swift */; };
 		89D95EAA2A4F296A00BAB9D7 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D95EA92A4F296A00BAB9D7 /* HomeTableViewController.swift */; };
@@ -19,6 +20,7 @@
 /* Begin PBXFileReference section */
 		895C8BA42A5614F8007E02E9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		89AD40112AAF464800DA4F1B /* Word Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Word Scramble.app"; path = "/Users/mahe03/Developer/mhelmeck/UIKitCodeLab/Word Scramble/build/Debug-iphoneos/Word Scramble.app"; sourceTree = "<absolute>"; };
+		89AD40182AAFB0F200DA4F1B /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		89D95EA52A4F296A00BAB9D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89D95EA72A4F296A00BAB9D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		89D95EA92A4F296A00BAB9D7 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +60,7 @@
 		89AD40162AAF4AA800DA4F1B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				89AD40182AAFB0F200DA4F1B /* AlertModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 				89D95EAA2A4F296A00BAB9D7 /* HomeTableViewController.swift in Sources */,
 				89D95EA62A4F296A00BAB9D7 /* AppDelegate.swift in Sources */,
 				89D95EA82A4F296A00BAB9D7 /* SceneDelegate.swift in Sources */,
+				89AD40192AAFB0F200DA4F1B /* AlertModel.swift in Sources */,
 				895C8BA52A5614F8007E02E9 /* HomeViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

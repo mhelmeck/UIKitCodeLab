@@ -30,6 +30,7 @@ class HomeTableViewController: UITableViewController {
     private func setupView() {
         view.backgroundColor = .white
         
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(reloadGame))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promptForAnswer))
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
@@ -47,10 +48,24 @@ class HomeTableViewController: UITableViewController {
             .sink { [weak self] title in
                 self?.title = title
             }.store(in: &cancellables)
+        
+        viewModel.$alertModel
+            .dropFirst()
+            .sink { [weak self] model in
+            self?.showAlert(model: model)
+        }.store(in: &cancellables)
     }
     
-    private func submit(_ answer: String) {
-        print(answer)
+    private func showAlert(model: AlertModel) {
+        let alertVC = UIAlertController(
+            title: model.title,
+            message: model.message,
+            preferredStyle: .alert
+        )
+        let action = UIAlertAction(title: "Ok", style: .default)
+        
+        alertVC.addAction(action)
+        present(alertVC, animated: true)
     }
     
     @objc private func promptForAnswer() {
@@ -62,11 +77,19 @@ class HomeTableViewController: UITableViewController {
                 return
             }
             
-            self?.submit(answer)
+            self?.viewModel.submit(answer) { indexPath in
+                self?.tableView.insertRows(at: [indexPath], with: .automatic)
+            }
         }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive)
         
         alertVC.addAction(submitAction)
+        alertVC.addAction(cancelAction)
         present(alertVC, animated: true)
+    }
+    
+    @objc private func reloadGame() {
+        viewModel.startGame()
     }
 }
 
