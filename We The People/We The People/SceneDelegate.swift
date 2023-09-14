@@ -50,17 +50,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func getRootViewController() -> UITabBarController {
-        let recentPetitionsVC = UINavigationController(rootViewController: RecentPetitionsTableViewController())
-        let popularPetitionsVC = UINavigationController(rootViewController: PopularPetitionsTableViewController())
-        
+        let recentPetitionsVM = RecentPetitionsViewModel()
         let recentItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
-        let popularItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
-        
+        let recentPetitionsVC = PetitionsTableViewController()
+        recentPetitionsVC.viewModel = recentPetitionsVM
         recentPetitionsVC.tabBarItem = recentItem
+        
+        let popularPetitionsVM = PopularPetitionsViewModel()
+        let popularItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
+        let popularPetitionsVC = PetitionsTableViewController()
+        popularPetitionsVC.viewModel = popularPetitionsVM
         popularPetitionsVC.tabBarItem = popularItem
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [recentPetitionsVC, popularPetitionsVC]
+        tabBarController.viewControllers = [
+            UINavigationController(rootViewController: recentPetitionsVC),
+            UINavigationController(rootViewController: popularPetitionsVC)
+        ]
         
         return tabBarController
     }
