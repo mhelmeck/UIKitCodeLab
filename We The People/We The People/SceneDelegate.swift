@@ -50,10 +50,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     private func getRootViewController() -> UITabBarController {
-        let recentPetitionsVM = RecentPetitionsViewModel()
+        let petitionsService = PetitionsService()
+        
         let recentItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
         let recentPetitionsVC = PetitionsTableViewController()
-        recentPetitionsVC.viewModel = recentPetitionsVM
+        recentPetitionsVC.petitionsService = petitionsService
         recentPetitionsVC.tabBarItem = recentItem
         
 //        let popularPetitionsVM = PopularPetitionsViewModel()

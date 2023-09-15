@@ -1,13 +1,11 @@
 import UIKit
-import Combine
 
 class PetitionsTableViewController: UITableViewController {
     // MARK: - Properties
     
-    var viewModel: PetitionsViewModel!
+    var petitionsService: PetitionsService!
     
     private var petitions: [Petition] = []
-    private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
     
@@ -15,7 +13,7 @@ class PetitionsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setupView()
-        bindView()
+        loadData()
     }
     
     // MARK: - Methods
@@ -24,13 +22,11 @@ class PetitionsTableViewController: UITableViewController {
         title = "Petitions"
     }
     
-    private func bindView() {
-        viewModel.petitionsPublisher
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] petitions in
-                self?.petitions = petitions
-                self?.tableView.reloadData()
-            }.store(in: &cancellables)
+    private func loadData() {
+        petitionsService.loadData { [weak self] petitions in
+            self?.petitions = petitions
+            self?.tableView.reloadData()
+        }
     }
 }
 
