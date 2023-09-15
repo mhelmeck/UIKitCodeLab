@@ -14,6 +14,7 @@
 		89B74E3A2AB32424009B7BA6 /* PetitionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B74E392AB32424009B7BA6 /* PetitionsService.swift */; };
 		89B74E3C2AB32431009B7BA6 /* PetitionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B74E3B2AB32431009B7BA6 /* PetitionsTableViewController.swift */; };
 		89BAC66B2AB3992600F2307B /* Petition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BAC66A2AB3992600F2307B /* Petition.swift */; };
+		89BAC6852AB4B47400F2307B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BAC6842AB4B47400F2307B /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		89B74E392AB32424009B7BA6 /* PetitionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionsService.swift; sourceTree = "<group>"; };
 		89B74E3B2AB32431009B7BA6 /* PetitionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionsTableViewController.swift; sourceTree = "<group>"; };
 		89BAC66A2AB3992600F2307B /* Petition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Petition.swift; sourceTree = "<group>"; };
+		89BAC6842AB4B47400F2307B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				89B74E3B2AB32431009B7BA6 /* PetitionsTableViewController.swift */,
+				89BAC6842AB4B47400F2307B /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				89BAC66B2AB3992600F2307B /* Petition.swift in Sources */,
 				89B74E1D2AB31C96009B7BA6 /* AppDelegate.swift in Sources */,
 				89B74E3A2AB32424009B7BA6 /* PetitionsService.swift in Sources */,
+				89BAC6852AB4B47400F2307B /* DetailViewController.swift in Sources */,
 				89B74E1F2AB31C96009B7BA6 /* SceneDelegate.swift in Sources */,
 				89B74E3C2AB32431009B7BA6 /* PetitionsTableViewController.swift in Sources */,
 			);

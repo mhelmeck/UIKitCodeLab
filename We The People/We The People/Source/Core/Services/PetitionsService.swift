@@ -2,6 +2,11 @@ import Combine
 import Foundation
 
 class PetitionsService {
+    
+    enum PetitionsServiceError: Error {
+        case general
+    }
+    
     // MARK: - Properties
     
     // MARK: - Init
@@ -10,8 +15,7 @@ class PetitionsService {
     
     // MARK: - Methods
     
-    func loadData(completion: @MainActor @escaping ([Petition]) -> Void) {
-        let urlString = "https://www.hackingwithswift.com/samples/petitions-1.json"
+    func loadData(from urlString: String, completion: @MainActor @escaping (Result<[Petition], PetitionsServiceError>) -> Void) {
         guard let url = URL(string: urlString) else {
             return
         }
@@ -28,16 +32,16 @@ class PetitionsService {
         return try? Data(contentsOf: url)
     }
     
-    private func decode(_ data: Data?) -> [Petition] {
+    private func decode(_ data: Data?) -> Result<[Petition], PetitionsServiceError> {
         guard let data = data else {
-            return []
+            return .failure(.general)
         }
         
         let decoder = JSONDecoder()
         guard let jsonPetitions = try? decoder.decode(Petitions.self, from: data) else {
-            return []
+            return .failure(.general)
         }
         
-        return jsonPetitions.results
+        return .success(jsonPetitions.results)
     }
 }

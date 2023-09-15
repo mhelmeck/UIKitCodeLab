@@ -23,10 +23,42 @@ class PetitionsTableViewController: UITableViewController {
     }
     
     private func loadData() {
-        petitionsService.loadData { [weak self] petitions in
-            self?.petitions = petitions
-            self?.tableView.reloadData()
+        guard let urlString = getUrlString() else {
+            showError()
+            return
         }
+        
+        petitionsService.loadData(from: urlString) { [weak self] result in
+            switch result {
+            case .success(let petitions):
+                self?.petitions = petitions
+                self?.tableView.reloadData()
+            case .failure:
+                self?.showError()
+            }
+        }
+    }
+    
+    private func getUrlString() -> String? {
+        switch tabBarController?.selectedIndex {
+        case 0:
+            return "https://www.hackingwithswift.com/samples/petitions-1.json"
+        case 1:
+            return "https://www.hackingwithswift.com/samples/petitions-2.json"
+        default:
+            return nil
+        }
+    }
+    
+    private func showError() {
+        let ac = UIAlertController(
+            title: "Loading error",
+            message: "There was a problem loading the feed; please check your connection and try again.",
+            preferredStyle: .alert
+        )
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        present(ac, animated: true)
     }
 }
 
@@ -48,5 +80,12 @@ extension PetitionsTableViewController {
         cell.accessoryType = .disclosureIndicator
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        vc.petition = petitions[indexPath.row]
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
