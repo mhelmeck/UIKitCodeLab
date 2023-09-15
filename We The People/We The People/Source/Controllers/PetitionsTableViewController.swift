@@ -5,7 +5,19 @@ class PetitionsTableViewController: UITableViewController {
     
     var petitionsService: PetitionsService!
     
-    private var petitions: [Petition] = []
+    private var filterKey: String?
+    
+    private var originalData: [Petition] = [] {
+        didSet {
+            filteredData = originalData
+        }
+    }
+    
+    private var filteredData: [Petition] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -20,6 +32,15 @@ class PetitionsTableViewController: UITableViewController {
     
     private func setupView() {
         title = "Petitions"
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchFor))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Credits",
+            style: .plain,
+            target: self, 
+            action: #selector(showInfo)
+        )
     }
     
     private func loadData() {
@@ -31,8 +52,7 @@ class PetitionsTableViewController: UITableViewController {
         petitionsService.loadData(from: urlString) { [weak self] result in
             switch result {
             case .success(let petitions):
-                self?.petitions = petitions
-                self?.tableView.reloadData()
+                self?.originalData = petitions
             case .failure:
                 self?.showError()
             }
@@ -51,20 +71,57 @@ class PetitionsTableViewController: UITableViewController {
     }
     
     private func showError() {
-        let ac = UIAlertController(
+        showAlert(
             title: "Loading error",
-            message: "There was a problem loading the feed; please check your connection and try again.",
-            preferredStyle: .alert
+            message: "There was a problem loading the feed; please check your connection and try again."
         )
+    }
+    
+    @objc private func showInfo() {
+        showAlert(
+            title: "Info",
+            message: "Data comes from the We The People API of the Whitehouse"
+        )
+    }
+    
+    @objc private func searchFor() {
+        let ac = UIAlertController(title: "Search for:", message: nil, preferredStyle: .alert)
+        ac.addTextField()
+        ac.textFields?.first?.text = filterKey
+        
+        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self, weak ac] _ in
+            let key = ac?.textFields?.first?.text ?? ""
+            
+            self?.filterData(with: key)
+        }))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .destructive))
+        
+        present(ac, animated: true)
+    }
+    
+    private func showAlert(title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         
         present(ac, animated: true)
+    }
+    
+    private func filterData(with key: String) {
+        filterKey = key        
+        guard !key.isEmpty else {
+            filteredData = originalData
+            return
+        }
+        
+        filteredData = originalData.filter {
+            $0.title.contains(key)
+        }
     }
 }
 
 extension PetitionsTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return petitions.count
+        return filteredData.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,8 +132,8 @@ extension PetitionsTableViewController {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "PetitionsCell")
         }
         
-        cell.textLabel?.text = petitions[indexPath.row].title
-        cell.detailTextLabel?.text = petitions[indexPath.row].body
+        cell.textLabel?.text = filteredData[indexPath.row].title
+        cell.detailTextLabel?.text = filteredData[indexPath.row].body
         cell.accessoryType = .disclosureIndicator
         
         return cell
@@ -84,7 +141,7 @@ extension PetitionsTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = DetailViewController()
-        vc.petition = petitions[indexPath.row]
+        vc.petition = filteredData[indexPath.row]
         
         navigationController?.pushViewController(vc, animated: true)
     }
