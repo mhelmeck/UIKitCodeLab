@@ -7,6 +7,7 @@ class ViewController: UIViewController {
     let cluesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         label.font = UIFont.systemFont(ofSize: 24)
         label.text = "CLUES"
         label.numberOfLines = 0
@@ -17,6 +18,7 @@ class ViewController: UIViewController {
     let answersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         label.font = UIFont.systemFont(ofSize: 24)
         label.text = "ANSWERS"
         label.numberOfLines = 0
@@ -61,6 +63,12 @@ class ViewController: UIViewController {
         return button
     }()
     
+    let buttonsView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false       
+        return view
+    }()
+    
     var letterButtons = [UIButton]()
     
     // MARK: - Lifecycle
@@ -85,10 +93,12 @@ class ViewController: UIViewController {
             answersLabel,
             currentAnswer,
             submit,
-            clear
+            clear,
+            buttonsView
         ].forEach(view.addSubview)
         
         installContraints()
+        setupButtons()
     }
     
     private func installContraints() {
@@ -125,6 +135,39 @@ class ViewController: UIViewController {
             $0.centerX.equalTo(view).offset(100.0)
             $0.centerY.equalTo(submit.snp.centerY)
             $0.height.equalTo(44.0)
+        }
+        
+        buttonsView.snp.makeConstraints {
+            $0.width.equalTo(750.0)
+            $0.height.equalTo(320.0)
+            $0.centerX.equalTo(view)
+            $0.top.equalTo(submit.snp.bottom).offset(20.0)
+            $0.bottom.equalTo(view.layoutMarginsGuide).offset(-20.0)
+        }
+    }
+    
+    private func setupButtons() {
+        let width = 150.0
+        let height = 80.0
+        
+        for row in 0..<4 {
+            for col in 0..<5 {
+                let letterButton = UIButton(type: .system)
+                letterButton.titleLabel?.font = UIFont.systemFont(ofSize: 36)
+
+                letterButton.setTitle("WWW", for: .normal)
+
+                let frame = CGRect(
+                    x: Double(col) * width,
+                    y: Double(row) * height,
+                    width: width,
+                    height: height
+                )
+                letterButton.frame = frame
+
+                buttonsView.addSubview(letterButton)
+                letterButtons.append(letterButton)
+            }
         }
     }
 }
