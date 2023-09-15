@@ -9,5 +9,5 @@ import Combine
 import Foundation
 
 protocol PetitionsViewModel {
-    var petitionsPublisher: Published<[String]>.Publisher { get }
+    var petitionsPublisher: Published<[Petition]>.Publisher { get }
 }

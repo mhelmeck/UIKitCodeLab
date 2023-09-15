@@ -4,9 +4,9 @@ import Foundation
 class PopularPetitionsViewModel: PetitionsViewModel {
     // MARK: - Properties
         
-    var petitionsPublisher: Published<[String]>.Publisher { $petitions }
+    var petitionsPublisher: Published<[Petition]>.Publisher { $petitions }
     
-    @Published private var petitions: [String] = []
+    @Published private var petitions: [Petition] = []
     
     // MARK: - Init
     

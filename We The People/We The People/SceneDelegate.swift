@@ -56,16 +56,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         recentPetitionsVC.viewModel = recentPetitionsVM
         recentPetitionsVC.tabBarItem = recentItem
         
-        let popularPetitionsVM = PopularPetitionsViewModel()
-        let popularItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
-        let popularPetitionsVC = PetitionsTableViewController()
-        popularPetitionsVC.viewModel = popularPetitionsVM
-        popularPetitionsVC.tabBarItem = popularItem
+//        let popularPetitionsVM = PopularPetitionsViewModel()
+//        let popularItem = UITabBarItem(tabBarSystemItem: .mostViewed, tag: 1)
+//        let popularPetitionsVC = PetitionsTableViewController()
+//        popularPetitionsVC.viewModel = popularPetitionsVM
+//        popularPetitionsVC.tabBarItem = popularItem
         
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
             UINavigationController(rootViewController: recentPetitionsVC),
-            UINavigationController(rootViewController: popularPetitionsVC)
+//            UINavigationController(rootViewController: popularPetitionsVC)
         ]
         
         return tabBarController

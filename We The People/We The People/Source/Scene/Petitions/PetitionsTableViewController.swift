@@ -6,7 +6,7 @@ class PetitionsTableViewController: UITableViewController {
     
     var viewModel: PetitionsViewModel!
     
-    private var petitions: [String] = []
+    private var petitions: [Petition] = []
     private var cancellables = Set<AnyCancellable>()
     
     // MARK: - Lifecycle
@@ -21,7 +21,7 @@ class PetitionsTableViewController: UITableViewController {
     // MARK: - Methods
     
     private func setupView() {
-
+        title = "Petitions"
     }
     
     private func bindView() {
@@ -47,8 +47,8 @@ extension PetitionsTableViewController {
             cell = UITableViewCell(style: .subtitle, reuseIdentifier: "PetitionsCell")
         }
         
-        cell.textLabel?.text = "Title"
-        cell.detailTextLabel?.text = "Details"
+        cell.textLabel?.text = petitions[indexPath.row].title
+        cell.detailTextLabel?.text = petitions[indexPath.row].body
         cell.accessoryType = .disclosureIndicator
         
         return cell
