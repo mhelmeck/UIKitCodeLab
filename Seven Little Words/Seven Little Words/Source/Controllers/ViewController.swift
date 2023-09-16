@@ -4,7 +4,9 @@ import UIKit
 class ViewController: UIViewController {
     // MARK: - Properties
     
-    let cluesLabel: UILabel = {
+    private let levelService = LevelService()
+    
+    private let cluesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
@@ -15,7 +17,7 @@ class ViewController: UIViewController {
         return label
     }()
     
-    let answersLabel: UILabel = {
+    private let answersLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
@@ -27,7 +29,7 @@ class ViewController: UIViewController {
         return label
     }()
     
-    let currentAnswer: UITextField = {
+    private let currentAnswer: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Tap letters to guess"
@@ -38,7 +40,7 @@ class ViewController: UIViewController {
         return textField
     }()
     
-    let scoreLabel: UILabel = {
+    private let scoreLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
@@ -47,7 +49,16 @@ class ViewController: UIViewController {
         return label
     }()
     
-    let submit: UIButton = {
+    private let levelLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .left
+        label.text = "Level: 1"
+        
+        return label
+    }()
+    
+    private let submit: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("SUBMIT", for: .normal)
@@ -55,7 +66,7 @@ class ViewController: UIViewController {
         return button
     }()
     
-    let clear: UIButton = {
+    private let clear: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("CLEAR", for: .normal)
@@ -63,13 +74,31 @@ class ViewController: UIViewController {
         return button
     }()
     
-    let buttonsView: UIView = {
+    private let buttonsView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false       
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 16.0
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor.lightGray.cgColor
+        
         return view
     }()
     
-    var letterButtons = [UIButton]()
+    private var letterButtons = [UIButton]()
+    private var activatedButtons = [UIButton]()
+    private var solutions = [String]()
+
+    private var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    
+    private var level = 1 {
+        didSet {
+            levelLabel.text = "Level: \(level)"
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -82,12 +111,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        loadLevel()
     }
 
     // MARK: - Methods
     
     private func setupView() {
+        submit.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
+        clear.addTarget(self, action: #selector(clearTapped), for: .touchUpInside)
+        
         [
+            levelLabel,
             scoreLabel,
             cluesLabel,
             answersLabel,
@@ -102,6 +137,10 @@ class ViewController: UIViewController {
     }
     
     private func installContraints() {
+        levelLabel.snp.makeConstraints {
+            $0.top.leading.equalTo(view.layoutMarginsGuide)
+        }
+        
         scoreLabel.snp.makeConstraints {
             $0.top.trailing.equalTo(view.layoutMarginsGuide)
         }
@@ -164,10 +203,86 @@ class ViewController: UIViewController {
                     height: height
                 )
                 letterButton.frame = frame
-
+                letterButton.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
+                
                 buttonsView.addSubview(letterButton)
                 letterButtons.append(letterButton)
             }
         }
+    }
+    
+    private func loadLevel() {
+        guard let level = levelService.load(level: level) else {
+            return
+        }
+        
+        solutions = level.solutions
+        cluesLabel.text = level.clueString
+        answersLabel.text = level.solutionString
+
+        if level.letterBits.count == letterButtons.count {
+            for i in 0 ..< letterButtons.count {
+                letterButtons[i].setTitle(level.letterBits[i], for: .normal)
+                letterButtons[i].isHidden = false
+            }
+        }
+    }
+    
+    private func levelUp(action: UIAlertAction) {
+        level += 1
+        solutions.removeAll(keepingCapacity: true)
+
+        loadLevel()
+    }
+    
+    @objc private func letterTapped(_ sender: UIButton) {
+        guard let buttonTitle = sender.titleLabel?.text else { 
+            return
+        }
+        
+        currentAnswer.text = currentAnswer.text?.appending(buttonTitle)
+        activatedButtons.append(sender)
+        sender.isHidden = true
+    }
+
+    @objc private func submitTapped(_ sender: UIButton) {
+        guard let answerText = currentAnswer.text else {
+            return
+        }
+        
+        guard let solutionPosition = solutions.firstIndex(of: answerText) else {
+            if score > 0 { score -= 1 }
+            
+            let ac = UIAlertController(title: "Ups!", message: "Are you wrong", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Try again", style: .default))
+            present(ac, animated: true)
+            
+            return
+        }
+        
+        activatedButtons.removeAll()
+
+        var splitAnswers = answersLabel.text?.components(separatedBy: "\n")
+        splitAnswers?[solutionPosition] = answerText
+        answersLabel.text = splitAnswers?.joined(separator: "\n")
+
+        currentAnswer.text = ""
+        score += 1
+
+        if letterButtons.allSatisfy({ $0.isHidden }) {
+            let ac = UIAlertController(title: "Well done!", message: "Are you ready for the next level?", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Let's go!", style: .default, handler: levelUp))
+            present(ac, animated: true)
+        }
+    }
+
+    @objc private func clearTapped(_ sender: UIButton) {
+        currentAnswer.text = ""
+
+        for btn in activatedButtons {
+            btn.isHidden = false
+        }
+
+        activatedButtons.removeAll()
     }
 }
