@@ -212,18 +212,20 @@ class ViewController: UIViewController {
     }
     
     private func loadLevel() {
-        guard let level = levelService.load(level: level) else {
-            return
-        }
-        
-        solutions = level.solutions
-        cluesLabel.text = level.clueString
-        answersLabel.text = level.solutionString
+        levelService.load(level: level) { [weak self] level in
+            guard let self else {
+                return
+            }
+            
+            self.solutions = level.solutions
+            self.cluesLabel.text = level.clueString
+            self.answersLabel.text = level.solutionString
 
-        if level.letterBits.count == letterButtons.count {
-            for i in 0 ..< letterButtons.count {
-                letterButtons[i].setTitle(level.letterBits[i], for: .normal)
-                letterButtons[i].isHidden = false
+            if level.letterBits.count == self.letterButtons.count {
+                for i in 0 ..< letterButtons.count {
+                    self.letterButtons[i].setTitle(level.letterBits[i], for: .normal)
+                    self.letterButtons[i].isHidden = false
+                }
             }
         }
     }

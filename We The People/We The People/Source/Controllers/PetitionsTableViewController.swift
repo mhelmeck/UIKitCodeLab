@@ -107,14 +107,20 @@ class PetitionsTableViewController: UITableViewController {
     }
     
     private func filterData(with key: String) {
-        filterKey = key        
+        filterKey = key
         guard !key.isEmpty else {
             filteredData = originalData
             return
         }
         
-        filteredData = originalData.filter {
-            $0.title.contains(key)
+        DispatchQueue.global(qos: .background).async {
+            let filtered = self.originalData.filter {
+                $0.title.contains(key)
+            }
+            
+            DispatchQueue.main.async {
+                self.filteredData = filtered
+            }
         }
     }
 }

@@ -44,19 +44,21 @@ class HomeViewModel {
         return "Picture \(selectedPosition) of \(amount)"
     }
 }
- 
-private extension HomeViewModel {
-     func fetchItems() {
-        let fm = FileManager.default
-        let path = Bundle.main.resourcePath!
-        let items = try! fm.contentsOfDirectory(atPath: path)
 
-        for item in items {
-            if item.hasPrefix("nssl") {
-                models.append(ImageModel(title: item))
+private extension HomeViewModel {
+    func fetchItems() {
+        DispatchQueue.global(qos: .background).async {
+            let fm = FileManager.default
+            let path = Bundle.main.resourcePath!
+            let items = try! fm.contentsOfDirectory(atPath: path)
+            
+            for item in items {
+                if item.hasPrefix("nssl") {
+                    self.models.append(ImageModel(title: item))
+                }
             }
+            
+            self.models.sort()
         }
-        
-        models.sort()
     }
 }
