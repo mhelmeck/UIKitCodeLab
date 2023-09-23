@@ -27,6 +27,10 @@ class HomeViewController: UICollectionViewController {
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.delegate = self
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            picker.sourceType = .camera
+        }
+        
         
         present(picker, animated: true)
     }
@@ -52,9 +56,31 @@ extension HomeViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let person = imageService.people[indexPath.item]
 
+        showOptionsAlert(person: person)
+    }
+    
+    private func showOptionsAlert(person: Person) {
+        let ac = UIAlertController(title: "Choose option", message: nil, preferredStyle: .alert)
+        
+        ac.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self, weak person] _ in
+            guard let person else { return }
+            
+            self?.showRenameAlert(person: person)
+        })
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self, weak person] _ in
+            self?.imageService.people.removeAll(where: { $0.imageName == person?.imageName })
+            self?.collectionView.reloadData()
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(ac, animated: true)
+    }
+    
+    private func showRenameAlert(person: Person) {
         let ac = UIAlertController(title: "Rename person", message: nil, preferredStyle: .alert)
         ac.addTextField()
-
+        ac.textFields?[0].text = person.name
+        
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
             guard let newName = ac?.textFields?[0].text else { return }
             person.name = newName
@@ -62,7 +88,7 @@ extension HomeViewController {
             self?.collectionView.reloadData()
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-
+        
         present(ac, animated: true)
     }
 }
