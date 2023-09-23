@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Pachinko/Pachinko.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Names Storage/Names Storage.xcodeproj">
    </FileRef>
    <FileRef
