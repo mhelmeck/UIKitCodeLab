@@ -12,7 +12,11 @@ class PersonCell: UICollectionViewCell {
     
     let imageView: UIImageView = {
         let view = UIImageView(frame: CGRect(x: 10, y: 10, width: 120, height: 120))
-        view.contentMode = .scaleAspectFit
+        view.layer.borderColor = UIColor(white: 0, alpha: 0.2).cgColor
+        view.layer.borderWidth = 2.0
+        view.layer.cornerRadius = 4.0
+        view.contentMode = .scaleAspectFill
+        view.clipsToBounds = true
         
         return view
     }()
@@ -42,6 +46,7 @@ class PersonCell: UICollectionViewCell {
     
     private func setupView() {
         backgroundColor = .white
+        layer.cornerRadius = 8
         
         contentView.addSubview(imageView)
         contentView.addSubview(titleLabel)
