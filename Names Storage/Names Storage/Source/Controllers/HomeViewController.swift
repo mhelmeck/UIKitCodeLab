@@ -55,12 +55,14 @@ extension HomeViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let person = imageService.people[indexPath.item]
+        let cell = collectionView.cellForItem(at: indexPath)
 
-        showOptionsAlert(person: person)
+        showOptionsAlert(person: person, cell: cell)
     }
     
-    private func showOptionsAlert(person: Person) {
-        let ac = UIAlertController(title: "Choose option", message: nil, preferredStyle: .alert)
+    private func showOptionsAlert(person: Person, cell: UICollectionViewCell?) {
+        let ac = UIAlertController(title: "Choose option", message: nil, preferredStyle: .actionSheet)
+        ac.popoverPresentationController?.sourceView = cell
         
         ac.addAction(UIAlertAction(title: "Rename", style: .default) { [weak self, weak person] _ in
             guard let person else { return }
