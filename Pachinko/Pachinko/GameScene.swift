@@ -3,7 +3,7 @@ import SpriteKit
 class GameScene: SKScene {
     // MARK: - Properties
     
-    let backgroundNode: SKSpriteNode = {
+    private let backgroundNode: SKSpriteNode = {
         let node = SKSpriteNode(imageNamed: "background.jpg")
         node.position = CGPoint(x: 512, y: 384)
         node.blendMode = .replace
@@ -11,6 +11,39 @@ class GameScene: SKScene {
         
         return node
     }()
+    
+    private let scoreLabel: SKLabelNode = {
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = "Score: 0"
+        label.horizontalAlignmentMode = .right
+        label.position = CGPoint(x: 980, y: 700)
+        
+        return label
+    }()
+    
+    private let editLabel: SKLabelNode = {
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = "Edit"
+        label.position = CGPoint(x: 80, y: 700)
+        
+        return label
+    }()
+    
+    private var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
+    
+    private var editingMode: Bool = false {
+        didSet {
+            if editingMode {
+                editLabel.text = "Done"
+            } else {
+                editLabel.text = "Edit"
+            }
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -21,26 +54,42 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            let ball = SKSpriteNode(imageNamed: "ballRed")
-            ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
-            ball.physicsBody!.restitution = 0.4
-            ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
-            ball.position = location
-            ball.name = "ball"
-            
-            
-            addChild(ball)
+            let objects = nodes(at: location)
+
+            if objects.contains(editLabel) {
+                editingMode.toggle()
+            } else {
+                if editingMode {
+                    let size = CGSize(width: Int.random(in: 16...128), height: 16)
+                    let box = SKSpriteNode(color: UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1), size: size)
+                    box.zRotation = CGFloat.random(in: 0...3)
+                    box.position = location
+
+                    box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
+                    box.physicsBody?.isDynamic = false
+
+                    addChild(box)
+                } else {
+                    let ball = SKSpriteNode(imageNamed: "ballRed")
+                    ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
+                    ball.physicsBody!.restitution = 0.4
+                    ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
+                    ball.position = location
+                    ball.name = "ball"
+                    
+                    addChild(ball)
+                }
+            }
         }
     }
     
-    // MARK: - Properties
+    // MARK: - Methods
     
     private func setupView() {
-        addChild(backgroundNode)
-        
         let bouncerCoords = [ (x: 0, y: 0), (x: 256, y: 0), (x: 512, y: 0), (x: 768, y: 0), (x: 1024, y: 0)]
         let slotCoords = [ (x: 128, y: 0), (x: 384, y: 0), (x: 640, y: 0), (x: 896, y: 0)]
             
+        addChild(backgroundNode)
         bouncerCoords
             .map(CGPoint.init)
             .forEach(addBouncer)
@@ -48,6 +97,8 @@ class GameScene: SKScene {
             .map(CGPoint.init)
             .enumerated()
             .forEach(addSlot)
+        addChild(scoreLabel)
+        addChild(editLabel)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -92,8 +143,10 @@ class GameScene: SKScene {
     
     private func collisionBetween(ball: SKNode, object: SKNode) {
         if object.name == "good" {
+            score += 1
             destroy(ball: ball)
         } else if object.name == "bad" {
+            score -= 1
             destroy(ball: ball)
         }
     }
