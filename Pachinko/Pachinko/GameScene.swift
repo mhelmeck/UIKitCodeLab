@@ -32,8 +32,8 @@ class GameScene: SKScene {
     
     private let editLabel: SKLabelNode = {
         let label = SKLabelNode(fontNamed: "Chalkduster")
-        label.text = "Play"
-        label.position = CGPoint(x: 80, y: 700)
+        label.text = "Editing, tap to play"
+        label.position = CGPoint(x: 220, y: 700)
         
         return label
     }()
@@ -41,7 +41,7 @@ class GameScene: SKScene {
     private let restartLabel: SKLabelNode = {
         let label = SKLabelNode(fontNamed: "Chalkduster")
         label.text = "Restart"
-        label.position = CGPoint(x: 240, y: 700)
+        label.position = CGPoint(x: 104, y: 640)
         
         return label
     }()
@@ -71,9 +71,9 @@ class GameScene: SKScene {
     private var editingMode: Bool = true {
         didSet {
             if editingMode {
-                editLabel.text = "Play"
+                editLabel.text = "Editing, tap to play"
             } else {
-                editLabel.text = "Edit"
+                editLabel.text = "Playing, tap to edit"
             }
         }
     }
@@ -188,13 +188,12 @@ class GameScene: SKScene {
     
     private func collisionBetween(ball: SKNode, object: SKNode) {
         if object.name == "good" {
-            score += 1
             maximumBalls += 1
             destroy(ball: ball)
         } else if object.name == "bad" {
-            score -= 1
             destroy(ball: ball)
         } else if object.name == "box" {
+            score += 1
             object.removeFromParent()
         }
     }
