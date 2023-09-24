@@ -21,12 +21,39 @@ class GameScene: SKScene {
         return label
     }()
     
+    private let ballsLeftLabel: SKLabelNode = {
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = "Balls left: 5"
+        label.horizontalAlignmentMode = .right
+        label.position = CGPoint(x: 790, y: 700)
+        
+        return label
+    }()
+    
     private let editLabel: SKLabelNode = {
         let label = SKLabelNode(fontNamed: "Chalkduster")
-        label.text = "Edit"
+        label.text = "Play"
         label.position = CGPoint(x: 80, y: 700)
         
         return label
+    }()
+    
+    private let restartLabel: SKLabelNode = {
+        let label = SKLabelNode(fontNamed: "Chalkduster")
+        label.text = "Restart"
+        label.position = CGPoint(x: 240, y: 700)
+        
+        return label
+    }()
+    
+    private let dividerNode: SKSpriteNode = {
+        let size = CGSize(width: 1024, height: 2)
+        let node = SKSpriteNode(color: .lightGray, size: size)
+        node.zRotation = 0.0
+        node.blendMode = .replace
+        node.position = CGPoint(x: 512, y: 384)
+        
+        return node
     }()
     
     private var score = 0 {
@@ -35,10 +62,16 @@ class GameScene: SKScene {
         }
     }
     
-    private var editingMode: Bool = false {
+    private var maximumBalls = 5 {
+        didSet {
+            ballsLeftLabel.text = "Balls left: \(maximumBalls)"
+        }
+    }
+    
+    private var editingMode: Bool = true {
         didSet {
             if editingMode {
-                editLabel.text = "Done"
+                editLabel.text = "Play"
             } else {
                 editLabel.text = "Edit"
             }
@@ -58,19 +91,28 @@ class GameScene: SKScene {
 
             if objects.contains(editLabel) {
                 editingMode.toggle()
+            } else if objects.contains(restartLabel) {
+                resetGame()
             } else {
                 if editingMode {
+                    guard location.y < 384 else { return }
+                    
                     let size = CGSize(width: Int.random(in: 16...128), height: 16)
                     let box = SKSpriteNode(color: UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1), size: size)
                     box.zRotation = CGFloat.random(in: 0...3)
                     box.position = location
-
                     box.physicsBody = SKPhysicsBody(rectangleOf: box.size)
                     box.physicsBody?.isDynamic = false
+                    box.name = "box"
 
                     addChild(box)
                 } else {
-                    let ball = SKSpriteNode(imageNamed: "ballRed")
+                    guard location.y > 384 else { return }
+                    guard maximumBalls > 0 else { return }
+                    
+                    maximumBalls -= 1
+                    let imageName = ["ballGrey", "ballPurple", "ballRed", "ballCyan", "ballYellow", "ballGreen", "ballBlue"].randomElement() ?? "ballRed"
+                    let ball = SKSpriteNode(imageNamed: imageName)
                     ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width / 2.0)
                     ball.physicsBody!.restitution = 0.4
                     ball.physicsBody!.contactTestBitMask = ball.physicsBody!.collisionBitMask
@@ -90,6 +132,7 @@ class GameScene: SKScene {
         let slotCoords = [ (x: 128, y: 0), (x: 384, y: 0), (x: 640, y: 0), (x: 896, y: 0)]
             
         addChild(backgroundNode)
+        addChild(dividerNode)
         bouncerCoords
             .map(CGPoint.init)
             .forEach(addBouncer)
@@ -97,8 +140,10 @@ class GameScene: SKScene {
             .map(CGPoint.init)
             .enumerated()
             .forEach(addSlot)
-        addChild(scoreLabel)
         addChild(editLabel)
+        addChild(restartLabel)
+        addChild(ballsLeftLabel)
+        addChild(scoreLabel)
         
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
         physicsWorld.contactDelegate = self
@@ -144,15 +189,31 @@ class GameScene: SKScene {
     private func collisionBetween(ball: SKNode, object: SKNode) {
         if object.name == "good" {
             score += 1
+            maximumBalls += 1
             destroy(ball: ball)
         } else if object.name == "bad" {
             score -= 1
             destroy(ball: ball)
+        } else if object.name == "box" {
+            object.removeFromParent()
         }
     }
 
     private func destroy(ball: SKNode) {
+        if let fireParticles = SKEmitterNode(fileNamed: "FireParticles") {
+            fireParticles.position = ball.position
+            addChild(fireParticles)
+        }
+
         ball.removeFromParent()
+    }
+    
+    private func resetGame() {
+        children.filter { $0.name == "box" || $0.name == "ball" }.forEach { $0.removeFromParent() }
+        
+        score = 0
+        maximumBalls = 5
+        editingMode = true
     }
 }
 
