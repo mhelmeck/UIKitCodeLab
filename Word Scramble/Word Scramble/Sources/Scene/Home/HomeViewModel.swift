@@ -13,6 +13,7 @@ class HomeViewModel {
     // MARK: - Properties
     
     let reloadDataSubject = PassthroughSubject<Void, Never>()
+    let wordsStorage: WordsStorage
     
     @Published var title = String()
     @Published var alertModel = AlertModel.empty
@@ -21,7 +22,9 @@ class HomeViewModel {
     
     // MARK: - Init
     
-    init() {
+    init(wordsStorage: WordsStorage) {
+        self.wordsStorage = wordsStorage
+        
         loadData()
         startGame()
     }
@@ -29,7 +32,9 @@ class HomeViewModel {
     // MARK: - Methods
     func startGame() {
         title = allWords.randomElement()?.capitalized ?? ""
-        usedWords.removeAll(keepingCapacity: true)
+//        usedWords.removeAll(keepingCapacity: true)
+        usedWords = wordsStorage.readWords(for: title)
+        
         reloadDataSubject.send()
     }
     
@@ -52,6 +57,7 @@ class HomeViewModel {
         }
 
         usedWords.insert(answer, at: 0)
+        wordsStorage.write(answer, for: title)
         completion(IndexPath(row: 0, section: 0))
     }
         

@@ -1,10 +1,3 @@
-//
-//  HomeTableViewController.swift
-//  Storm Viewer
-//
-//  Created by Maciej Helmecki on 14/06/2023.
-//
-
 import UIKit
 import Combine
 
@@ -27,6 +20,12 @@ class HomeTableViewController: UITableViewController {
         bindView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+        
     // MARK: - Methods
     
     private func setupView() {
@@ -53,21 +52,25 @@ extension HomeTableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let model = viewModel.models[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
-        cell.textLabel?.text = viewModel.imageTitle(for: indexPath.row)
+        cell.textLabel?.text = model.title + " (Read \(model.amount))"
         
         return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedModelTitle = viewModel.imageTitle(for: indexPath.row)
+        let model = viewModel.models[indexPath.row]
+        
+        let selectedModelTitle = model.title
         let detailsTitle = viewModel.imageExtendedTitle(for: indexPath.row)
         
         let detailsViewModel = DetailsViewModel(selectedModelTitle: selectedModelTitle, detailsTitle: detailsTitle)
         let vc = DetailViewController()
         vc.viewModel = detailsViewModel
         
+        viewModel.logVisit(on: model)
         navigationController?.pushViewController(vc, animated: true)
     }
     

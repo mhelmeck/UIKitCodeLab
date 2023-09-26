@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		895C8BA52A5614F8007E02E9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 895C8BA42A5614F8007E02E9 /* HomeViewModel.swift */; };
 		89AD40192AAFB0F200DA4F1B /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89AD40182AAFB0F200DA4F1B /* AlertModel.swift */; };
+		89C9E5042AC38B76005F4EAD /* WordsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9E5032AC38B76005F4EAD /* WordsStorage.swift */; };
 		89D95EA62A4F296A00BAB9D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D95EA52A4F296A00BAB9D7 /* AppDelegate.swift */; };
 		89D95EA82A4F296A00BAB9D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D95EA72A4F296A00BAB9D7 /* SceneDelegate.swift */; };
 		89D95EAA2A4F296A00BAB9D7 /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D95EA92A4F296A00BAB9D7 /* HomeTableViewController.swift */; };
@@ -19,8 +20,9 @@
 
 /* Begin PBXFileReference section */
 		895C8BA42A5614F8007E02E9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		89AD40112AAF464800DA4F1B /* Word Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Word Scramble.app"; path = "/Users/mahe03/Developer/mhelmeck/UIKitCodeLab/Word Scramble/build/Debug-iphoneos/Word Scramble.app"; sourceTree = "<absolute>"; };
 		89AD40182AAFB0F200DA4F1B /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		89C9E5012AC381E1005F4EAD /* Word Scramble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Word Scramble.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		89C9E5032AC38B76005F4EAD /* WordsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsStorage.swift; sourceTree = "<group>"; };
 		89D95EA52A4F296A00BAB9D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89D95EA72A4F296A00BAB9D7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		89D95EA92A4F296A00BAB9D7 /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewController.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 		89AD40152AAF4AA300DA4F1B /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				89C9E5022AC38B6C005F4EAD /* Services */,
 				89AD40172AAF4ABC00DA4F1B /* Home */,
 			);
 			path = Scene;
@@ -74,10 +77,19 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
+		89C9E5022AC38B6C005F4EAD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				89C9E5032AC38B76005F4EAD /* WordsStorage.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		89D95E992A4F296A00BAB9D7 = {
 			isa = PBXGroup;
 			children = (
 				89D95EA42A4F296A00BAB9D7 /* Word Scramble */,
+				89C9E5012AC381E1005F4EAD /* Word Scramble.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,7 +133,7 @@
 			);
 			name = "Word Scramble";
 			productName = "Word Scramble";
-			productReference = 89AD40112AAF464800DA4F1B /* Word Scramble.app */;
+			productReference = 89C9E5012AC381E1005F4EAD /* Word Scramble.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -180,6 +192,7 @@
 				89D95EA82A4F296A00BAB9D7 /* SceneDelegate.swift in Sources */,
 				89AD40192AAFB0F200DA4F1B /* AlertModel.swift in Sources */,
 				895C8BA52A5614F8007E02E9 /* HomeViewModel.swift in Sources */,
+				89C9E5042AC38B76005F4EAD /* WordsStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

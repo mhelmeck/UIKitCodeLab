@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  Storm Viewer
-//
-//  Created by Maciej Helmecki on 05/07/2023.
-//
-
 import Combine
 import Foundation
 
@@ -17,6 +10,8 @@ class HomeViewModel {
     
     @Published private(set) var models = [ImageModel]()
     
+    private var counterDict: [String: Int] = [:]
+    
     // MARK: - Init
     
     init() {
@@ -24,15 +19,7 @@ class HomeViewModel {
     }
     
     // MARK: - Methods
-    
-    func imageTitle(for index: Int) -> String? {
-        guard index >= 0 && index < models.count else {
-            return nil
-        }
         
-        return models[index].title
-    }
-    
     func imageExtendedTitle(for index: Int) -> String? {
         guard index >= 0 && index < models.count else {
             return nil
@@ -43,6 +30,14 @@ class HomeViewModel {
         
         return "Picture \(selectedPosition) of \(amount)"
     }
+    
+    func logVisit(on model: ImageModel) {
+        let userDefaults = UserDefaults.standard
+        model.amount += 1
+        counterDict[model.title] = model.amount
+        
+        userDefaults.setValue(counterDict, forKey: "counterDict")
+    }
 }
 
 private extension HomeViewModel {
@@ -50,15 +45,31 @@ private extension HomeViewModel {
         DispatchQueue.global(qos: .background).async {
             let fm = FileManager.default
             let path = Bundle.main.resourcePath!
-            let items = try! fm.contentsOfDirectory(atPath: path)
+            let content = try! fm.contentsOfDirectory(atPath: path)
             
-            for item in items {
-                if item.hasPrefix("nssl") {
-                    self.models.append(ImageModel(title: item))
-                }
+            var titles = [String]()
+            for item in content {
+                if item.hasPrefix("nssl") { titles.append(item) }
             }
             
-            self.models.sort()
+            let cachedDict = self.readCounterDict()
+            for title in titles {
+                let amount = cachedDict[title] ?? 0
+                self.counterDict[title] = amount
+            }
+            
+            self.models = self.counterDict
+                .map { ImageModel(title: $0.key, amount: $0.value) }
+                .sorted()
         }
+    }
+    
+    private func readCounterDict() -> [String: Int] {
+        let userDefaults = UserDefaults.standard
+        guard let dict = userDefaults.object(forKey: "counterDict") as? [String: Int] else {
+            return [:]
+        }
+        
+        return dict
     }
 }

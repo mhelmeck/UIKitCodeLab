@@ -2,9 +2,13 @@ import Foundation
 import UIKit
 
 class ImageService {
-    // MARK: - Init
+    // MARK: - Properties
     
     var people = [Person]()
+    
+    private let defaults = UserDefaults.standard
+    
+    // MARK: - Init
     
     init() {}
     
@@ -20,6 +24,26 @@ class ImageService {
         
         let person = Person(name: "Unknown", imageName: imageName)
         people.append(person)
+    }
+    
+    func loadFomrDisc() {
+        let decoder = JSONDecoder()
+        guard let data = defaults.object(forKey: "people") as? Data else {
+            return
+        }
+        
+        guard let decodedPeople = try? decoder.decode([Person].self, from: data) else {
+            return
+        }
+        
+        people = decodedPeople
+    }
+    
+    func saveToDisc() {
+        let encoder = JSONEncoder()
+        guard let data = try? encoder.encode(people) else { return }
+        
+        defaults.set(data, forKey: "people")
     }
     
     func read(imageName: String) -> UIImage {

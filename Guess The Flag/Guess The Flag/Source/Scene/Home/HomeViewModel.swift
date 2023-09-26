@@ -80,11 +80,16 @@ class HomeViewModel {
   
 private extension HomeViewModel {
     func reset() {
-        homeTitle = ""
+        var highestScore = readHighestScore()
+        if score > highestScore {
+            highestScore = score
+            writeHighestScore(score)
+        }
         
+        homeTitle = ""
         alertModel = AlertModel(
             title: "Congratulations!",
-            message: "You've finished game with score: \(score).",
+            message: "You've finished game with score: \(score). Highest game score: \(highestScore)",
             actionTitle: "Play again",
             action: { [weak self] in
                 self?.scores = []
@@ -108,5 +113,17 @@ private extension HomeViewModel {
             "uk",
             "us"
         ].forEach( { countries.append($0) })
+    }
+    
+    func readHighestScore() -> Int {
+        let defaults = UserDefaults.standard
+        let highestScore = defaults.integer(forKey: "highestScore")
+        
+        return highestScore
+    }
+    
+    func writeHighestScore(_ score: Int) {
+        let defaults = UserDefaults.standard
+        defaults.setValue(score, forKey: "highestScore")
     }
 }

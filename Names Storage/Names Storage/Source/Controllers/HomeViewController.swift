@@ -11,6 +11,7 @@ class HomeViewController: UICollectionViewController {
         super.viewDidLoad()
         
         setupView()
+        loadData()
     }
     
     // MARK: - Methods
@@ -21,6 +22,11 @@ class HomeViewController: UICollectionViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewPerson))
 
+    }
+    
+    private func loadData() {
+        imageService.loadFomrDisc()
+        collectionView.reloadData()
     }
     
     @objc private func addNewPerson() {
@@ -71,7 +77,9 @@ extension HomeViewController {
         })
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [weak self, weak person] _ in
             self?.imageService.people.removeAll(where: { $0.imageName == person?.imageName })
+            
             self?.collectionView.reloadData()
+            self?.imageService.saveToDisc()
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -86,8 +94,9 @@ extension HomeViewController {
         ac.addAction(UIAlertAction(title: "OK", style: .default) { [weak self, weak ac] _ in
             guard let newName = ac?.textFields?[0].text else { return }
             person.name = newName
-
+            
             self?.collectionView.reloadData()
+            self?.imageService.saveToDisc()
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
@@ -109,6 +118,7 @@ extension HomeViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         imageService.save(image)
         collectionView.reloadData()
+        imageService.saveToDisc()
         
         dismiss(animated: true)
     }
