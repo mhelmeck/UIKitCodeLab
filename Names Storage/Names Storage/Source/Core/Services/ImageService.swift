@@ -28,11 +28,8 @@ class ImageService {
     
     func loadFomrDisc() {
         let decoder = JSONDecoder()
-        guard let data = defaults.object(forKey: "people") as? Data else {
-            return
-        }
-        
-        guard let decodedPeople = try? decoder.decode([Person].self, from: data) else {
+        guard let data = defaults.object(forKey: "people") as? Data,
+              let decodedPeople = try? decoder.decode([Person].self, from: data) else {
             return
         }
         

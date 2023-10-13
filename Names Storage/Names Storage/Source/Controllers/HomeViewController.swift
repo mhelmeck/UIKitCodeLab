@@ -36,8 +36,7 @@ class HomeViewController: UICollectionViewController {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             picker.sourceType = .camera
         }
-        
-        
+
         present(picker, animated: true)
     }
 }
