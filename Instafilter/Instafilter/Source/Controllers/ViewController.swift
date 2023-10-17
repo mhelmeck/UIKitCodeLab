@@ -5,6 +5,7 @@
 //  Created by Maciej Helmecki on 17/10/2023.
 //
 
+import CoreImage
 import SnapKit
 import UIKit
 
@@ -63,11 +64,16 @@ class ViewController: UIViewController {
     }()
 
     private var currentImage: UIImage!
+    private var context: CIContext!
+    private var currentFilter: CIFilter!
 
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        context = CIContext()
+        currentFilter = CIFilter(name: "CISepiaTone")
 
         setupView()
     }
@@ -145,15 +151,37 @@ class ViewController: UIViewController {
     }
 
     @objc private func changeButtonTapped() {
+        let ac = UIAlertController(title: "Choose filter", message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "CIBumpDistortion", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CIGaussianBlur", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CIPixellate", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CISepiaTone", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CITwirlDistortion", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CIUnsharpMask", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "CIVignette", style: .default, handler: setFilter))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
 
+        present(ac, animated: true)
     }
 
     @objc private func tapSaveButtonapped() {
+        guard let image = imageView.image else { return }
 
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+//        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image), nil) // This is the same as above
     }
 
-    @objc private func imageSliderChangedValue(_ slider: UISlider) {
+    @objc private func imageSliderChangedValue() {
+        applyProcessing()
+    }
 
+    @objc private func setFilter(_ action: UIAlertAction) {
+        guard currentImage != nil else { return }
+        guard let actionTitle = action.title else { return }
+
+        currentFilter = CIFilter(name: actionTitle)
+        setupFilter()
+        applyProcessing()
     }
 }
 
@@ -161,12 +189,71 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[.editedImage] as? UIImage else { return }
 
-        cacheAndsShowImage(image)
+        setSliderToMaxValue()
+        cache(image)
+        setupFilter()
+        applyProcessing()
         dismiss(animated: true)
     }
 
-    private func cacheAndsShowImage(_ image: UIImage) {
+    @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            showAlert(title: "Save error", message: error.localizedDescription)
+        } else {
+            showAlert(title: "Saved!", message: "Your altered image has been saved to your photos.")
+        }
+    }
+
+    private func showAlert(title: String, message: String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        present(ac, animated: true)
+    }
+
+    func setSliderToMaxValue() {
+        imageSlider.setValue(1.0, animated: true)
+    }
+
+    private func cache(_ image: UIImage) {
         currentImage = image
+    }
+
+    private func setupFilter() {
+        let ciImage = CIImage(image: currentImage)
+        currentFilter.setValue(ciImage, forKey: kCIInputImageKey)
+    }
+
+    private func applyProcessing() {
+        guard let ciImage = currentFilter.outputImage else {
+            return
+        }
+
+        adjustFilter()
+
+        if let cgImg = context.createCGImage(ciImage, from: ciImage.extent) {
+            let image = UIImage(cgImage: cgImg)
+            show(image)
+        }
+    }
+
+    private func adjustFilter() {
+        let inputKeys = currentFilter.inputKeys
+
+        if inputKeys.contains(kCIInputIntensityKey) {
+            currentFilter.setValue(imageSlider.value, forKey: kCIInputIntensityKey)
+        }
+        if inputKeys.contains(kCIInputRadiusKey) {
+            currentFilter.setValue(imageSlider.value * 200, forKey: kCIInputRadiusKey)
+        }
+        if inputKeys.contains(kCIInputScaleKey) {
+            currentFilter.setValue(imageSlider.value * 10, forKey: kCIInputScaleKey)
+        }
+        if inputKeys.contains(kCIInputCenterKey) {
+            currentFilter.setValue(CIVector(x: currentImage.size.width / 2, y: currentImage.size.height / 2), forKey: kCIInputCenterKey)
+        }
+    }
+
+    private func show(_ image: UIImage) {
         imageView.image = image
     }
 }
