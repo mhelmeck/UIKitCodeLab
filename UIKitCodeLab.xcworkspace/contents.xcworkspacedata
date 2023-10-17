@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Instafilter/Instafilter.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pachinko/Pachinko.xcodeproj">
    </FileRef>
    <FileRef
