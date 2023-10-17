@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     // MARK: - Properties
 
-    let imageWrapper: UIView = {
+    private let imageWrapper: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .darkGray
@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         return view
     }()
 
-    let imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         return view
     }()
 
-    let sliderLabel: UILabel = {
+    private let sliderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Intensity:"
@@ -37,14 +37,14 @@ class ViewController: UIViewController {
         return label
     }()
 
-    let imageSlider: UISlider = {
+    private let imageSlider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
 
         return slider
     }()
 
-    let changeButton: UIButton = {
+    private let changeButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Change Filter", for: .normal)
@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         return button
     }()
 
-    let saveButton: UIButton = {
+    private let saveButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Save", for: .normal)
@@ -61,6 +61,8 @@ class ViewController: UIViewController {
 
         return button
     }()
+
+    private var currentImage: UIImage!
 
     // MARK: - Lifecycle
 
@@ -73,14 +75,17 @@ class ViewController: UIViewController {
     // MARK: - Methods
 
     private func setupView() {
+        title = "Instafilter"
         view.backgroundColor = .white
-
+        
         addSubviews()
         setConstrainsts()
         setTargets()
     }
 
     private func addSubviews() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(importPicture))
+        
         imageWrapper.addSubview(imageView)
 
         view.addSubview(imageWrapper)
@@ -132,6 +137,13 @@ class ViewController: UIViewController {
         imageSlider.addTarget(self, action: #selector(imageSliderChangedValue), for: .valueChanged)
     }
 
+    @objc private func importPicture() {
+        let picker = UIImagePickerController()
+        picker.allowsEditing = true
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+
     @objc private func changeButtonTapped() {
 
     }
@@ -142,5 +154,19 @@ class ViewController: UIViewController {
 
     @objc private func imageSliderChangedValue(_ slider: UISlider) {
 
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[.editedImage] as? UIImage else { return }
+
+        cacheAndsShowImage(image)
+        dismiss(animated: true)
+    }
+
+    private func cacheAndsShowImage(_ image: UIImage) {
+        currentImage = image
+        imageView.image = image
     }
 }
