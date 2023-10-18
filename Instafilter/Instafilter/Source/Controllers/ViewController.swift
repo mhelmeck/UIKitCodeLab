@@ -48,7 +48,7 @@ class ViewController: UIViewController {
     private let changeButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Change Filter", for: .normal)
+        button.setTitle("CISepiaTone", for: .normal)
         button.contentHorizontalAlignment = .center
 
         return button
@@ -165,7 +165,11 @@ class ViewController: UIViewController {
     }
 
     @objc private func tapSaveButtonapped() {
-        guard let image = imageView.image else { return }
+        guard let image = imageView.image else {
+            showAlert(title: "Ups!", message: "There is no chossen image")
+
+            return
+        }
 
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
 //        UIImageWriteToSavedPhotosAlbum(image, self, #selector(image), nil) // This is the same as above
@@ -176,11 +180,16 @@ class ViewController: UIViewController {
     }
 
     @objc private func setFilter(_ action: UIAlertAction) {
-        guard currentImage != nil else { return }
+        guard currentImage != nil else { 
+            showAlert(title: "Ups!", message: "There is no chossen image")
+            return
+        }
         guard let actionTitle = action.title else { return }
 
+        changeButton.setTitle(actionTitle, for: .normal)
+
         currentFilter = CIFilter(name: actionTitle)
-        setupFilter()
+        setImageToFilter()
         applyProcessing()
     }
 }
@@ -191,7 +200,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
 
         setSliderToMaxValue()
         cache(image)
-        setupFilter()
+        setImageToFilter()
         applyProcessing()
         dismiss(animated: true)
     }
@@ -218,7 +227,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         currentImage = image
     }
 
-    private func setupFilter() {
+    private func setImageToFilter() {
         let ciImage = CIImage(image: currentImage)
         currentFilter.setValue(ciImage, forKey: kCIInputImageKey)
     }
