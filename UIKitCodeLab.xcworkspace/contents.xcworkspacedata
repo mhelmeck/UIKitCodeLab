@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Animations/Animations.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Whack-a-Penguin/Whack-a-Penguin.xcodeproj">
    </FileRef>
    <FileRef
