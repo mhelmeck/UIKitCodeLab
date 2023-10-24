@@ -263,6 +263,11 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     }
 
     private func show(_ image: UIImage) {
+        imageView.alpha = 0.0
         imageView.image = image
+
+        UIView.animate(withDuration: 1, delay: 0.5, animations: {
+            self.imageView.alpha = 1.0
+        })
     }
 }

@@ -103,9 +103,25 @@ class HomeViewController: UIViewController {
     }
     
     @objc private func buttonTapped(sender: UIButton) {
-        viewModel.buttonTapped(tag: sender.tag)
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            usingSpringWithDamping: 0.6,
+            initialSpringVelocity: 5,
+            animations: {
+                sender.transform = CGAffineTransform(scaleX: 0.85, y: 0.85)
+            })
+
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0.5,
+            animations: {
+                sender.transform = .identity
+            }) { _ in
+                self.viewModel.buttonTapped(tag: sender.tag)
+            }
     }
-    
+
     private func showAlert(model: AlertModel) {
         let alertVC = UIAlertController(
             title: model.title,
