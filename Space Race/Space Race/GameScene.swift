@@ -36,21 +36,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
 
+    private let possibleEnemies = ["ball", "hammer", "tv"]
+    private var isGameOver = false
+    private var gameTimer: Timer?
+
     // MARK: - Lifecycle
 
     override func didMove(to view: SKView) {
         setupView()
-    }
-
-    private func setupView() {
-        backgroundColor = .black
-
-        addSubviews()
         resetScore()
         setupPhysicsWorld()
+        setupTimer()
     }
 
     // MARK: - Methods
+
+    private func setupView() {
+        backgroundColor = .black
+        addSubviews()
+    }
 
     private func addSubviews() {
         addChild(starfield)
@@ -65,5 +69,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func setupPhysicsWorld() {
         physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         physicsWorld.contactDelegate = self
+    }
+
+    private func setupTimer() {
+        gameTimer = Timer.scheduledTimer(
+            timeInterval: 0.35,
+            target: self,
+            selector: #selector(createEnemy),
+            userInfo: nil,
+            repeats: true
+        )
+    }
+
+    @objc private func createEnemy() {
+        guard let enemy = possibleEnemies.randomElement() else { 
+            return
+        }
+
+        let node = SKSpriteNode(imageNamed: enemy)
+        node.position = CGPoint(x: 1200, y: Int.random(in: 50...736))
+        addChild(node)
+
+        node.physicsBody = SKPhysicsBody(texture: node.texture!, size: node.size)
+        node.physicsBody?.categoryBitMask = 1
+        node.physicsBody?.velocity = CGVector(dx: -500, dy: 0)
+        node.physicsBody?.angularVelocity = 5
+        node.physicsBody?.linearDamping = 0
+        node.physicsBody?.angularDamping = 0
     }
 }
